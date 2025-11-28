@@ -1,0 +1,211 @@
+function generarHTMLFormulario(isExtendido: boolean): string {
+  const capitalize = (text: string): string => {
+    return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+  };
+
+  const labelId = isExtendido
+    ? '<label class="form-label fw-semibold" for="inputId">ID (LLDDDDLL)</label>'
+    : "";
+  const labelNombre = isExtendido
+    ? '<label class="form-label fw-semibold" for="inputNombre">Nombre</label>'
+    : "";
+  const labelDureza = isExtendido
+    ? '<label class="form-label fw-semibold" for="inputDureza">Dureza (1-10)</label>'
+    : "";
+  const labelCristales = isExtendido
+    ? '<label class="form-label fw-semibold" for="inputCristales">Tamaño de cristales (0-10)</label>'
+    : "";
+  const labelClasificacion = isExtendido
+    ? '<label class="form-label fw-semibold" for="inputClasificacion">Clasificación</label>'
+    : "";
+  const labelTemperatura = isExtendido
+    ? '<label class="form-label fw-semibold" for="inputTemperatura">Temperatura de formación (K)</label>'
+    : "";
+  const labelEstructura = isExtendido
+    ? '<label class="form-label fw-semibold" for="inputEstructura">Estructura</label>'
+    : "";
+  const labelForma = isExtendido
+    ? '<label class="form-label fw-semibold" for="inputForma">Forma de los granos</label>'
+    : "";
+
+  // Placeholders para modo reducido
+  const placeholderId = isExtendido
+    ? "Ej: AB1234CD"
+    : "ID (formato LLDDDDLL) - Ej: AB1234CD";
+  const placeholderNombre = isExtendido ? "" : "Nombre del mineral";
+  const placeholderDureza = isExtendido ? "" : "Dureza (1-10)";
+  const placeholderCristales = isExtendido ? "" : "Tamaño de cristales (0-10)";
+  const placeholderTemperatura = isExtendido
+    ? ""
+    : "Temperatura (-100 a 100 K)";
+  const placeholderEstructura = isExtendido ? "" : "Estructura de la roca";
+  const placeholderForma = isExtendido ? "" : "Forma de los granos";
+
+  return `
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                ${labelId}
+                <input type="text" class="form-control" id="inputId" maxlength="8" name="inputId"
+                       placeholder="${placeholderId}" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                ${labelNombre}
+                <input type="text" class="form-control" id="inputNombre" name="inputNombre" 
+                       placeholder="${placeholderNombre}" required>
+            </div>
+        </div>
+
+        <fieldset class="mb-3">
+            <legend class="form-label fw-semibold">Grupo / Origen</legend>
+            <div class="d-flex gap-3 flex-wrap">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="grupo" value="${TipoRoca.Ignea
+    }" id="grupoIgnea" required>
+                    <label class="form-check-label" for="grupoIgnea">${capitalize(
+      TipoRoca.Ignea
+    )}</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="grupo" value="${TipoRoca.Metamorfica
+    }" id="grupoMeta" required>
+                    <label class="form-check-label" for="grupoMeta">${capitalize(
+      TipoRoca.Metamorfica
+    )}</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="grupo" value="${TipoRoca.Sedimentaria
+    }" id="grupoSedi" required>
+                    <label class="form-check-label" for="grupoSedi">${capitalize(
+      TipoRoca.Sedimentaria
+    )}</label>
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                ${labelDureza}
+                <input type="number" class="form-control" id="inputDureza" min="1" max="10" value="5"
+                       placeholder="${placeholderDureza}" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                ${labelCristales}
+                <input type="number" class="form-control" id="inputCristales" min="0" max="10" step="0.1" value="5"
+                       placeholder="${placeholderCristales}" required>
+            </div>
+        </div>
+
+        <fieldset class="mb-3">
+            <legend class="form-label fw-semibold">Tamaño de grano</legend>
+            <div class="row">
+                <div class="col-6 col-md-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="tamanoGrano" value="${TamanoGrano.MuyGrueso
+    }" id="granoMuyGrueso" required>
+                        <label class="form-check-label small" for="granoMuyGrueso">${capitalize(
+      TamanoGrano.MuyGrueso
+    )}</label>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="tamanoGrano" value="${TamanoGrano.Grueso
+    }" id="granoGrueso" required>
+                        <label class="form-check-label small" for="granoGrueso">${capitalize(
+      TamanoGrano.Grueso
+    )}</label>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="tamanoGrano" value="${TamanoGrano.Medio
+    }" id="granoMedio" required>
+                        <label class="form-check-label small" for="granoMedio">${capitalize(
+      TamanoGrano.Medio
+    )}</label>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="tamanoGrano" value="${TamanoGrano.Fino
+    }" id="granoFino" required>
+                        <label class="form-check-label small" for="granoFino">${capitalize(
+      TamanoGrano.Fino
+    )}</label>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                ${labelClasificacion}
+                <select class="form-select" id="inputClasificacion" required>
+                    <option value="">-- Seleccionar clasificación --</option>
+                    <option value="${Clasificacion.Construccion}">${capitalize(
+      Clasificacion.Construccion
+    )}</option>
+                    <option value="${Clasificacion.Ornamental}">${capitalize(
+      Clasificacion.Ornamental
+    )}</option>
+                    <option value="${Clasificacion.Utensilios}">${capitalize(
+      Clasificacion.Utensilios
+    )}</option>
+                    <option value="${Clasificacion.Machacadas}">${capitalize(
+      Clasificacion.Machacadas
+    )}</option>
+                </select>
+            </div>
+            <div class="col-md-6 mb-3">
+                ${labelTemperatura}
+                <input type="number" class="form-control" id="inputTemperatura" min="-100" max="100" step="0.1" value="0"
+                       placeholder="${placeholderTemperatura}" required>
+                <div class="form-text">Rango: -100 a 100 K</div>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            ${labelEstructura}
+            <textarea class="form-control" id="inputEstructura" rows="2"
+                      placeholder="${placeholderEstructura}" required></textarea>
+        </div>
+
+        <div class="mb-3">
+            ${labelForma}
+            <textarea class="form-control" id="inputForma" rows="2"
+                      placeholder="${placeholderForma}" required></textarea>
+        </div>
+
+        <fieldset class="mb-3">
+            <legend class="form-label fw-semibold">Textura</legend>
+            <div class="d-flex gap-3 flex-wrap">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="textura" value="${Textura.Vitrea
+    }" id="texturaVitrea" required>
+                    <label class="form-check-label" for="texturaVitrea">${capitalize(
+      Textura.Vitrea
+    )}</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="textura" value="${Textura.Afanitica
+    }" id="texturaAfanitica" required>
+                    <label class="form-check-label" for="texturaAfanitica">${capitalize(
+      Textura.Afanitica
+    )}</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="textura" value="${Textura.Faneritica
+    }" id="texturaFaneritica" required>
+                    <label class="form-check-label" for="texturaFaneritica">${capitalize(
+      Textura.Faneritica
+    )}</label>
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="d-flex gap-2">
+            <button type="button" class="btn btn-primary flex-fill" id="btnAnalizar">Analizar Mineral</button>
+            <button type="button" class="btn btn-outline-secondary" id="btnLimpiar">Limpiar</button>
+        </div>
+    `;
+}
