@@ -1,17 +1,17 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { Visor } from "./visor/visor";
+// src/app/app.ts
+import { Component } from '@angular/core';
+import { MineralComponent } from './components/mineral/mineral.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Visor],
-  templateUrl: './app.html',
-  styleUrl: './app.css'
+  standalone: true,
+  imports: [MineralComponent],
+  template: `
+    <div class="container mt-4">
+      <app-mineral></app-mineral>
+    </div>
+  `
 })
 export class App {
-currentLocale: any;
-toggleLocale() {
-throw new Error('Method not implemented.');
-}
-  protected readonly title = signal('moduloLunarAngular');
+  title = 'Módulo Lunar Angular';
 }
