@@ -7,9 +7,9 @@ import { MineralComponent } from './components/mineral/mineral.component';
   standalone: true,
   imports: [MineralComponent],
   template: `
-    <div class="container mt-4">
+  <div class="container"> 
       <app-mineral></app-mineral>
-    </div>
+</div>
   `
 })
 export class App {
