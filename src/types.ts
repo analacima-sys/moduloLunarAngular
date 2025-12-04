@@ -1,7 +1,7 @@
 // src/types.ts
-
+/*
 export enum TipoRoca {
-  Ignea = 'ígneas',
+  Ignea = 'Ígneas',
   Metamorfica = 'metamórficas',
   Sedimentaria = 'sedimentarias'
 }
@@ -25,6 +25,33 @@ export enum Clasificacion {
   Utensilios = 'utensilios',
   Machacadas = 'machacadas'
 }
+*/
+
+export enum TipoRoca {
+  Ignea = 'Ígneas',
+  Metamorfica = 'Metamórficas',
+  Sedimentaria = 'Sedimentarias'
+}
+
+export enum TamanoGrano {
+  MuyGrueso = 'Muy grueso',
+  Grueso = 'Grueso',
+  Medio = 'Medio',
+  Fino = 'Fino'
+}
+
+export enum Textura {
+  Vitrea = 'Vítrea',
+  Afanitica = 'Afanítica',
+  Faneritica = 'Fanerítica'
+}
+
+export enum Clasificacion {
+  Construccion = 'Construcción',
+  Ornamental = 'Ornamental',
+  Utensilios = 'Utensilios',
+  Machacadas = 'Machacadas'
+}
 
 export interface Mineral {
   id: string;
@@ -41,6 +68,7 @@ export interface Mineral {
 }
 
 // Traducciones para formato americano
+/*
 export const TRADUCCIONES_EN: Record<string, string> = {
   'ígneas': 'igneous',
   'metamórficas': 'metamorphic',
@@ -57,3 +85,20 @@ export const TRADUCCIONES_EN: Record<string, string> = {
   'utensilios': 'utensils',
   'machacadas': 'crushed'
 };
+*/
+export const TRADUCCIONES_EN: Record<string, string> = {
+  'Ígneas': 'Igneous',
+  'Metamórficas': 'Metamorphic',
+  'Sedimentarias': 'Sedimentary',
+  'Muy grueso': 'Very coarse',
+  'Grueso': 'Coarse',
+  'Medio': 'Medium',
+  'Fino': 'Fine',
+  'Vítrea': 'Vitreous',
+  'Afanítica': 'Aphanitic',
+  'Fanerítica': 'Phaneritic',
+  'Construcción': 'Construction',
+  'Ornamental': 'Ornamental',
+  'Utensilios': 'Utensils',
+  'Machacadas': 'Crushed'
+}
