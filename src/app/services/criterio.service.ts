@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 import { Mineral, TipoRoca, TamanoGrano, Textura } from '../../types';
 
 export enum CriterioValidacion {
-  Igneas = 'ígneas',
-  Metamorficas = 'metamórficas',
-  Sedimentarias = 'sedimentarias'
+  Igneas = 'Criterio ígneas',
+  Metamorficas = 'Criterio metamórficas',
+  Sedimentarias = 'Criterio sedimentarias'
 }
 
 @Injectable({ providedIn: 'root' })

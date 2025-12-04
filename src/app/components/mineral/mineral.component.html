@@ -1,284 +1,370 @@
 <!-- src/app/components/mineral/mineral.component.html -->
-<div class="card">
-  <div class="card-header bg-primary">
-    {{ formatoSalida() === 'americano' ? 'Lunar Module - Mineral Entry' : 'Módulo Lunar - Entrada de minerales' }}
+
+<div class="container">
+  <!-- USUARIO -->
+  <div class="card bg-dark text-white">
+    <div class="card-body">
+      <h1 class="h3 mb-2">Módulo Lunar</h1>
+      <div class="alert alert-info mb-0 mt-3">
+        <strong>Usuario:</strong> <span id="astronautaInfo"></span>
+      </div>
+      <input type="button" class="btn btn-light mt-3" value="Ver Inventario" id="verInventario" />
+    </div>
   </div>
-  <div class="card-body">
 
-    <!-- Modo / Criterio / Formato -->
-    <div class="d-flex gap-2 mb-3 align-items-center flex-wrap">
-      
-      <!-- Modo del formulario -->
-      <div class="btn-group" role="group">
-        <button type="button" 
-                class="btn btn-outline-primary"
-                [class.active]="modoActual() === ModoFormulario.Extendido"
-                (click)="cambiarModo(ModoFormulario.Extendido)">
-          {{ formatoSalida() === 'americano' ? 'Extended' : 'Extendido' }}
-        </button>
-        <button type="button" 
-                class="btn btn-outline-primary"
-                [class.active]="modoActual() === ModoFormulario.Reducido"
-                (click)="cambiarModo(ModoFormulario.Reducido)">
-          {{ formatoSalida() === 'americano' ? 'Compact' : 'Reducido' }}
-        </button>
-      </div>
+  <!-- CONFIGURACIÓN -->
+  <!-- Configuración -->
+  <div class="card">
+    <div class="card-header bg-primary text-white">
+      <h5 class="mb-0">Configuración</h5>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <!-- Columna 1: Modo de formulario -->
+        <div class="col-lg-4 mb-3 mb-lg-0">
+          <fieldset>
+            <legend class="form-label">Modo de formulario:</legend>
+            <div class="btn-group w-100" aria-label="Selección de modo de formulario">
+              <input type="radio" class="btn-check" name="modoFormulario" id="btnExtendido" value="extendido" checked
+                autocomplete="off" [class.active]="modoActual() === ModoFormulario.Extendido"
+                (click)="cambiarModo(ModoFormulario.Extendido)" />
+              <label class="btn btn-outline-primary" for="btnExtendido">Extendido</label>
 
-      <!-- Criterio de validación -->
-      <div class="ms-3">
-        <label class="form-label mb-1">
-          {{ formatoSalida() === 'americano' ? 'Validation criterion' : 'Criterio de validación' }}
-        </label>
-        <select class="form-select" 
-                [value]="criterioSeleccionado()"
-                (change)="cambiarCriterio($any($event.target).value)">
-          @for (c of Object.values(criterios); track c) {
-            <option [value]="c">{{ traducir(c) }}</option>
-          }
-        </select>
-      </div>
+              <input type="radio" class="btn-check" name="modoFormulario" id="btnReducido" value="reducido"
+                autocomplete="off" [class.active]="modoActual() === ModoFormulario.Reducido"
+                (click)="cambiarModo(ModoFormulario.Reducido)" />
+              <label class="btn btn-outline-primary" for="btnReducido">Reducido</label>
+            </div>
+          </fieldset>
+        </div>
 
-      <!-- Formato de salida -->
-      <div class="ms-auto">
-        <label class="form-label mb-1">
-          {{ formatoSalida() === 'americano' ? 'Output format' : 'Formato de salida' }}
-        </label>
-        <div class="btn-group">
-          <button type="button" 
-                  class="btn btn-outline-primary"
-                  [class.active]="formatoSalida() === 'europeo'"
-                  (click)="cambiarFormato('europeo')">
-            {{ formatoSalida() === 'americano' ? 'European' : 'Europeo' }}
-          </button>
-          <button type="button" 
-                  class="btn btn-outline-primary"
-                  [class.active]="formatoSalida() === 'americano'"
-                  (click)="cambiarFormato('americano')">
-            {{ formatoSalida() === 'americano' ? 'American' : 'Americano' }}
-          </button>
+        <!-- Columna 2: Criterio de validación -->
+        <div class="col-lg-4 mb-3 mb-lg-0">
+          <fieldset>
+            <legend class="form-label">Criterio de validación:</legend>
+            <select class="form-select" [value]="criterioSeleccionado()"
+              (change)="cambiarCriterio($any($event.target).value)">
+              @for (c of Object.values(criterios); track c) {
+              <option [value]="c">{{ traducir(c) }}</option>
+              }
+            </select>
+            <!-- FORMA SIN ANGULAR
+            <select class="form-select" id="criterioSelect" name="criterioSelect">
+              <option value="igneas">Criterio Ígneas</option>
+              <option value="metamorficas">Criterio Metamórficas</option>
+              <option value="sedimentarias">Criterio Sedimentarias</option>
+            </select>
+            -->
+          </fieldset>
+        </div>
+
+        <!-- Columna 3: Formato de salida -->
+        <div class="col-lg-4">
+          <fieldset>
+            <legend class="form-label">Formato de salida:</legend>
+            <div class="btn-group w-100" aria-label="Selección de formato de salida">
+              <input type="radio" class="btn-check" name="formatoSalida" id="btnEuropeo" value="europeo" checked
+                autocomplete="off" [class.active]="formatoSalida() === 'europeo'" (click)="cambiarFormato('europeo')" />
+              <label class="btn btn-outline-primary" for="btnEuropeo">Europeo</label>
+
+              <input type="radio" class="btn-check" name="formatoSalida" id="btnAmericano" value="americano"
+                autocomplete="off" [class.active]="formatoSalida() === 'americano'"
+                (click)="cambiarFormato('americano')" />
+              <label class="btn btn-outline-primary" for="btnAmericano">Americano</label>
+            </div>
+          </fieldset>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- FORMULARIO -->
-    <form [formGroup]="formularioActivo()" (ngSubmit)="analizar()">
+  <!-- FORMULARIO -->
+  <div class="card">
+    <div class="card-header bg-primary">
+      {{ formatoSalida() === 'americano' ? 'Lunar Module - Mineral Entry' : 'Módulo Lunar - Entrada de minerales' }}
+    </div>
+    <div class="card-body">
 
-      <!-- ID y Nombre -->
-      <div class="row">
-        <div class="col-lg-6 mb-3">
-          @if (modoActual() === ModoFormulario.Extendido) {
-            <label class="form-label-extended">{{ labelId }}</label>
-          }
-          <input formControlName="id" 
-                 class="form-control" 
-                 [placeholder]="modoActual() === ModoFormulario.Reducido ? labelId : 'Ej: AB1234CD'">
-          
-          @if (formularioActivo().get('id')?.touched && formularioActivo().get('id')?.invalid) {
-            <div class="hint-text text-danger">
-              {{ formatoSalida() === 'americano' 
-                ? 'Invalid ID. Format: 2 letters, 4 numbers, 2 letters.' 
-                : 'ID inválido. Formato: 2 letras, 4 números, 2 letras.' }}
-            </div>
-          }
+      <!-- Modo / Criterio / Formato -->
+      <div class="d-flex gap-2 mb-3 align-items-center flex-wrap">
+
+        <!-- Modo del formulario 
+        <div class="btn-group" role="group">
+          <button type="button" class="btn btn-outline-primary"
+            [class.active]="modoActual() === ModoFormulario.Extendido" (click)="cambiarModo(ModoFormulario.Extendido)">
+            {{ formatoSalida() === 'americano' ? 'Extended' : 'Extendido' }}
+          </button>
+          <button type="button" class="btn btn-outline-primary"
+            [class.active]="modoActual() === ModoFormulario.Reducido" (click)="cambiarModo(ModoFormulario.Reducido)">
+            {{ formatoSalida() === 'americano' ? 'Compact' : 'Reducido' }}
+          </button>
         </div>
+      -->
 
-        <div class="col-lg-6 mb-3">
-          @if (modoActual() === ModoFormulario.Extendido) {
-            <label class="form-label-extended">{{ labelNombre }}</label>
-          }
-          <input formControlName="nombre" 
-                 class="form-control"
-                 [class.is-invalid]="formularioActivo().get('nombre')?.touched && formularioActivo().get('nombre')?.invalid"
-                 [placeholder]="modoActual() === ModoFormulario.Reducido ? labelNombre : ''">
-          
-          @if (formularioActivo().get('nombre')?.touched && formularioActivo().get('nombre')?.invalid) {
-            <div class="hint-text text-danger">
-              {{ formatoSalida() === 'americano' 
-                ? 'Name is required.' 
-                : 'El nombre es requerido.' }}
-            </div>
-          }
+        <!-- Criterio de validación 
+
+
+
+
+        <div class="ms-3">
+          <label class="form-label mb-1">
+            {{ formatoSalida() === 'americano' ? 'Validation criterion' : 'Criterio de validación' }}
+          </label>
+          <select class="form-select" [value]="criterioSeleccionado()"
+            (change)="cambiarCriterio($any($event.target).value)">
+            @for (c of Object.values(criterios); track c) {
+            <option [value]="c">{{ traducir(c) }}</option>
+            }
+          </select>
         </div>
+      -->
+
+        <!-- Formato de salida 
+        <div class="ms-auto">
+          <label class="form-label mb-1">
+            {{ formatoSalida() === 'americano' ? 'Output format' : 'Formato de salida' }}
+          </label>
+          <div class="btn-group">
+            <button type="button" class="btn btn-outline-primary" [class.active]="formatoSalida() === 'europeo'"
+              (click)="cambiarFormato('europeo')">
+              {{ formatoSalida() === 'americano' ? 'European' : 'Europeo' }}
+            </button>
+            <button type="button" class="btn btn-outline-primary" [class.active]="formatoSalida() === 'americano'"
+              (click)="cambiarFormato('americano')">
+              {{ formatoSalida() === 'americano' ? 'American' : 'Americano' }}
+            </button>
+          </div>
+        </div>
+        -->
       </div>
 
-      <!-- Grupo / Dureza / Tamaño cristales -->
-      <div class="row">
-        <div class="col-lg-6 mb-3">
-          <label class="form-label-extended">{{ labelGrupo }}</label>
-          @for (g of tiposRoca; track g) {
+      <!-- FORMULARIO -->
+      <form [formGroup]="formularioActivo()" (ngSubmit)="analizar()">
+
+        <!-- ID y Nombre -->
+        <div class="row">
+          <div class="col-lg-6 mb-3">
+            @if (modoActual() === ModoFormulario.Extendido) {
+            <label class="form-label-extended">{{ labelId }}</label>
+            }
+            <input formControlName="id" class="form-control"
+              [placeholder]="modoActual() === ModoFormulario.Reducido ? labelId : 'Ej: AB1234CD'">
+
+            @if (formularioActivo().get('id')?.touched && formularioActivo().get('id')?.invalid) {
+            <div class="hint-text text-danger">
+              {{ formatoSalida() === 'americano'
+              ? 'Invalid ID. Format: 2 letters, 4 numbers, 2 letters.'
+              : 'ID inválido. Formato: 2 letras, 4 números, 2 letras.' }}
+            </div>
+            }
+          </div>
+
+          <div class="col-lg-6 mb-3">
+            @if (modoActual() === ModoFormulario.Extendido) {
+            <label class="form-label-extended">{{ labelNombre }}</label>
+            }
+            <input formControlName="nombre" class="form-control"
+              [class.is-invalid]="formularioActivo().get('nombre')?.touched && formularioActivo().get('nombre')?.invalid"
+              [placeholder]="modoActual() === ModoFormulario.Reducido ? labelNombre : ''">
+
+            @if (formularioActivo().get('nombre')?.touched && formularioActivo().get('nombre')?.invalid) {
+            <div class="hint-text text-danger">
+              {{ formatoSalida() === 'americano'
+              ? 'Name is required.'
+              : 'El nombre es requerido.' }}
+            </div>
+            }
+          </div>
+        </div>
+
+        <!-- Grupo / Dureza / Tamaño cristales -->
+        <div class="row">
+          <div class="col-lg-6 mb-3">
+            <label class="form-label-extended">{{ labelGrupo }}</label>
+            @for (g of tiposRoca; track g) {
             <div class="form-check">
-              <input class="form-check-input" 
-                     type="radio" 
-                     [value]="g" 
-                     formControlName="grupo" 
-                     [id]="'g-'+g">
+              <input class="form-check-input" type="radio" [value]="g" formControlName="grupo" [id]="'g-'+g">
               <label class="form-check-label" [for]="'g-'+g">{{ traducir(g) }}</label>
             </div>
-          }
-        </div>
-
-        <div class="col-lg-3 mb-3">
-          <label class="form-label-extended">{{ labelDureza }}</label>
-          <select formControlName="dureza" class="form-select">
-            @for (n of [1,2,3,4,5,6,7,8,9,10]; track n) {
-              <option [value]="n">{{ n }}</option>
             }
-          </select>
-        </div>
+          </div>
 
-        <div class="col-lg-3 mb-3">
-          <label class="form-label-extended">{{ labelTamanoCristales }}</label>
-          <select formControlName="tamanoCristales" class="form-select">
-            @for (n of [0,1,2,3,4,5,6,7,8,9,10]; track n) {
+          <div class="col-lg-3 mb-3">
+            <label class="form-label-extended">{{ labelDureza }}</label>
+            <select formControlName="dureza" class="form-select">
+              @for (n of [1,2,3,4,5,6,7,8,9,10]; track n) {
               <option [value]="n">{{ n }}</option>
-            }
-          </select>
-        </div>
-      </div>
+              }
+            </select>
+          </div>
 
-      <!-- Tamaño de grano + Clasificación + Temperatura -->
-      <div class="row">
-        <div class="col-lg-6 mb-3">
-          <label class="form-label-extended">{{ labelTamanoGrano }}</label>
-          <div class="d-flex gap-3 flex-wrap">
-            @for (tg of tamaniosGrano; track tg) {
+          <div class="col-lg-3 mb-3">
+            <label class="form-label-extended">{{ labelTamanoCristales }}</label>
+            <select formControlName="tamanoCristales" class="form-select">
+              @for (n of [0,1,2,3,4,5,6,7,8,9,10]; track n) {
+              <option [value]="n">{{ n }}</option>
+              }
+            </select>
+          </div>
+        </div>
+
+        <!-- Tamaño de grano + Clasificación + Temperatura -->
+        <div class="row">
+          <div class="col-lg-6 mb-3">
+            <label class="form-label-extended">{{ labelTamanoGrano }}</label>
+            <div class="d-flex gap-3 flex-wrap">
+              @for (tg of tamaniosGrano; track tg) {
               <div class="form-check">
-                <input class="form-check-input" 
-                       type="radio" 
-                       [value]="tg" 
-                       formControlName="tamanoGrano" 
-                       [id]="'tg-'+tg">
+                <input class="form-check-input" type="radio" [value]="tg" formControlName="tamanoGrano" [id]="'tg-'+tg">
                 <label class="form-check-label" [for]="'tg-'+tg">{{ traducir(tg) }}</label>
               </div>
-            }
+              }
+            </div>
           </div>
-        </div>
 
-        <div class="col-lg-3 mb-3">
-          <label class="form-label-extended">{{ labelClasificacion }}</label>
-          <select formControlName="clasificacion" class="form-select">
-            @for (c of clasificaciones; track c) {
+          <div class="col-lg-3 mb-3">
+            <label class="form-label-extended">{{ labelClasificacion }}</label>
+            <select formControlName="clasificacion" class="form-select">
+              @for (c of clasificaciones; track c) {
               <option [value]="c">{{ traducir(c) }}</option>
-            }
-          </select>
-        </div>
+              }
+            </select>
+          </div>
 
-        <div class="col-lg-3 mb-3">
-          <label class="form-label-extended">{{ labelTemperatura }}</label>
-          <input type="number" 
-                 formControlName="temperaturaFormacion" 
-                 class="form-control"
-                 placeholder="">
-          <div class="hint-text">
-            {{ formatoSalida() === 'americano' ? 'Range: -100 to 100 K' : 'Rango: -100 a 100 K' }}
+          <div class="col-lg-3 mb-3">
+            <label class="form-label-extended">{{ labelTemperatura }}</label>
+            <input type="number" formControlName="temperaturaFormacion" class="form-control" placeholder="">
+            <div class="hint-text">
+              {{ formatoSalida() === 'americano' ? 'Range: -100 to 100 K' : 'Rango: -100 a 100 K' }}
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Estructura / Forma de los granos -->
-      <div class="row">
-        <div class="col-12 mb-3">
-          <label class="form-label-extended">{{ labelEstructura }}</label>
-          <textarea formControlName="estructura" 
-                    rows="2" 
-                    class="form-control"
-                    [placeholder]="formatoSalida() === 'americano' ? 'Structure description' : 'Descripción de la estructura'"></textarea>
+        <!-- Estructura / Forma de los granos -->
+        <div class="row">
+          <div class="col-12 mb-3">
+            <label class="form-label-extended">{{ labelEstructura }}</label>
+            <textarea formControlName="estructura" rows="2" class="form-control"
+              [placeholder]="formatoSalida() === 'americano' ? 'Structure description' : 'Descripción de la estructura'"></textarea>
+          </div>
+
+          <div class="col-12 mb-3">
+            <label class="form-label-extended">{{ labelFormaGranos }}</label>
+            <textarea formControlName="formaGranos" rows="2" class="form-control"
+              [placeholder]="formatoSalida() === 'americano' ? 'Grain shape description' : 'Descripción de la forma de los granos'"></textarea>
+          </div>
         </div>
 
-        <div class="col-12 mb-3">
-          <label class="form-label-extended">{{ labelFormaGranos }}</label>
-          <textarea formControlName="formaGranos" 
-                    rows="2" 
-                    class="form-control"
-                    [placeholder]="formatoSalida() === 'americano' ? 'Grain shape description' : 'Descripción de la forma de los granos'"></textarea>
-        </div>
-      </div>
-
-      <!-- Textura -->
-      <div class="row">
-        <div class="col-12 mb-3">
-          <label class="form-label-extended">{{ labelTextura }}</label>
-          @for (t of texturas; track t) {
+        <!-- Textura -->
+        <div class="row">
+          <div class="col-12 mb-3">
+            <label class="form-label-extended">{{ labelTextura }}</label>
+            @for (t of texturas; track t) {
             <div class="form-check">
-              <input class="form-check-input" 
-                     type="radio" 
-                     [value]="t" 
-                     formControlName="textura" 
-                     [id]="'t-'+t">
+              <input class="form-check-input" type="radio" [value]="t" formControlName="textura" [id]="'t-'+t">
               <label class="form-check-label" [for]="'t-'+t">{{ traducir(t) }}</label>
             </div>
-          }
+            }
+          </div>
         </div>
-      </div>
 
-      <!-- Botones -->
-      <div class="d-flex gap-2">
-        <button type="submit" 
-                class="btn btn-primary"
-                [disabled]="formularioActivo().invalid">
-          {{ textoAnalizar }}
-        </button>
-        <button type="button" 
-                class="btn btn-outline-secondary" 
-                (click)="limpiar()">
-          {{ textoLimpiar }}
-        </button>
-      </div>
-    </form>
+        <!-- Botones -->
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-primary" [disabled]="formularioActivo().invalid">
+            {{ textoAnalizar }}
+          </button>
+          <button type="button" class="btn btn-outline-secondary" (click)="limpiar()">
+            {{ textoLimpiar }}
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
 
 <!-- RESULTADO -->
 @if (esValido() !== null) {
-  <div class="card mt-3" [ngClass]="esValido() ? 'border-success' : 'border-danger'">
-    <div class="card-header" 
-         [ngClass]="esValido() ? 'bg-success text-white' : 'bg-danger text-white'">
-      {{ esValido() ? textoValido : textoNoValido }}
-    </div>
-    <div class="card-body text-center">
-      <div class="emoji-result">
-        @if (esValido()) {
-          <span>😄</span>
-        } @else {
-          <span>😢</span>
-        }
-      </div>
-      <p class="mt-2">
-        {{ ultimoMineral()?.nombre || (formatoSalida() === 'americano' ? 'The mineral' : 'El mineral') }}
-        {{ esValido() ? textoCumple : textoNoCumple }}
-        {{ textoCriterio }} {{ traducir(criterioSeleccionado()) }}.
-      </p>
-    </div>
+<div class="card mt-3" [ngClass]="esValido() ? 'border-success' : 'border-danger'">
+  <div class="card-header" [ngClass]="esValido() ? 'bg-success text-white' : 'bg-danger text-white'">
+    {{ esValido() ? textoValido : textoNoValido }}
   </div>
+  <div class="card-body text-center">
+    <div class="emoji-result">
+      @if (esValido()) {
+      <span>😄</span>
+      } @else {
+      <span>😢</span>
+      }
+    </div>
+    <p class="mt-2">
+      {{ ultimoMineral()?.nombre || (formatoSalida() === 'americano' ? 'The mineral' : 'El mineral') }}
+      {{ esValido() ? textoCumple : textoNoCumple }}
+      {{ textoCriterio }} {{ traducir(criterioSeleccionado()) }}.
+    </p>
+  </div>
+</div>
 }
 
 <!-- TABLA DE DATOS DEL MINERAL -->
 @if (ultimoMineral() && esValido()) {
-  <div class="card mt-3">
-    <div class="card-header bg-info text-white">{{ textoDatosMineral }}</div>
-    <div class="card-body">
-      <div class="row">
-        <div class="col-lg-6">
-          <table class="table">
-            <tr><td class="fw-bold">{{ labelId }}:</td><td>{{ ultimoMineral()!.id }}</td></tr>
-            <tr><td class="fw-bold">{{ labelNombre }}:</td><td>{{ ultimoMineral()!.nombre }}</td></tr>
-            <tr><td class="fw-bold">{{ labelGrupo }}:</td><td>{{ traducir(ultimoMineral()!.grupo) }}</td></tr>
-            <tr><td class="fw-bold">{{ labelDureza }}:</td><td>{{ ultimoMineral()!.dureza }} (Mohs)</td></tr>
-            <tr><td class="fw-bold">{{ labelTamanoGrano }}:</td><td>{{ traducir(ultimoMineral()!.tamanoGrano) }}</td></tr>
-            <tr><td class="fw-bold">{{ labelTextura }}:</td><td>{{ traducir(ultimoMineral()!.textura) }}</td></tr>
-          </table>
-        </div>
+<div class="card mt-3">
+  <div class="card-header bg-info text-white">{{ textoDatosMineral }}</div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-lg-6">
+        <table class="table">
+          <tr>
+            <td class="fw-bold">{{ labelId }}:</td>
+            <td>{{ ultimoMineral()!.id }}</td>
+          </tr>
+          <tr>
+            <td class="fw-bold">{{ labelNombre }}:</td>
+            <td>{{ ultimoMineral()!.nombre }}</td>
+          </tr>
+          <tr>
+            <td class="fw-bold">{{ labelGrupo }}:</td>
+            <td>{{ traducir(ultimoMineral()!.grupo) }}</td>
+          </tr>
+          <tr>
+            <td class="fw-bold">{{ labelDureza }}:</td>
+            <td>{{ ultimoMineral()!.dureza }} (Mohs)</td>
+          </tr>
+          <tr>
+            <td class="fw-bold">{{ labelTamanoGrano }}:</td>
+            <td>{{ traducir(ultimoMineral()!.tamanoGrano) }}</td>
+          </tr>
+          <tr>
+            <td class="fw-bold">{{ labelTextura }}:</td>
+            <td>{{ traducir(ultimoMineral()!.textura) }}</td>
+          </tr>
+        </table>
+      </div>
 
-        <div class="col-lg-6">
-          <table class="table">
-            <tr><td class="fw-bold">{{ labelClasificacion }}:</td><td>{{ traducir(ultimoMineral()!.clasificacion) }}</td></tr>
-            <tr><td class="fw-bold">{{ labelTamanoCristales }}:</td><td>{{ ultimoMineral()!.tamanoCristales }}</td></tr>
-            <tr><td class="fw-bold">{{ labelTemperatura }}:</td><td>{{ temperaturaFormateada(ultimoMineral()!.temperaturaFormacion) }}</td></tr>
-            <tr><td class="fw-bold">{{ labelEstructura }}:</td><td>{{ ultimoMineral()!.estructura || '—' }}</td></tr>
-            <tr><td class="fw-bold">{{ labelFormaGranos }}:</td><td>{{ ultimoMineral()!.formaGranos || '—' }}</td></tr>
-          </table>
-        </div>
+      <div class="col-lg-6">
+        <table class="table">
+          <tr>
+            <td class="fw-bold">{{ labelClasificacion }}:</td>
+            <td>{{ traducir(ultimoMineral()!.clasificacion) }}</td>
+          </tr>
+          <tr>
+            <td class="fw-bold">{{ labelTamanoCristales }}:</td>
+            <td>{{ ultimoMineral()!.tamanoCristales }}</td>
+          </tr>
+          <tr>
+            <td class="fw-bold">{{ labelTemperatura }}:</td>
+            <td>{{ temperaturaFormateada(ultimoMineral()!.temperaturaFormacion) }}</td>
+          </tr>
+          <tr>
+            <td class="fw-bold">{{ labelEstructura }}:</td>
+            <td>{{ ultimoMineral()!.estructura || '—' }}</td>
+          </tr>
+          <tr>
+            <td class="fw-bold">{{ labelFormaGranos }}:</td>
+            <td>{{ ultimoMineral()!.formaGranos || '—' }}</td>
+          </tr>
+        </table>
       </div>
     </div>
   </div>
+</div>
 }
