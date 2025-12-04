@@ -1,10 +1,16 @@
 // src/app/components/mineral/mineral.component.ts
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MineralFormService, ModoFormulario } from '../../services/mineral-form.service';
+import { MineralFormExtendidoService } from '../../services/mineral-form-extendido.service';
+import { MineralFormReducidoService } from '../../services/mineral-form-reducido.service';
 import { CriterioService, CriterioValidacion } from '../../services/criterio.service';
 import { Mineral, TipoRoca, TamanoGrano, Clasificacion, Textura, TRADUCCIONES_EN } from '../../../types';
+
+export enum ModoFormulario {
+  Extendido = 'extendido',
+  Reducido = 'reducido'
+}
 
 @Component({
   standalone: true,
@@ -12,7 +18,7 @@ import { Mineral, TipoRoca, TamanoGrano, Clasificacion, Textura, TRADUCCIONES_EN
   templateUrl: './mineral.component.html',
   imports: [CommonModule, FormsModule, ReactiveFormsModule]
 })
-export class MineralComponent implements OnInit {
+export class MineralComponent {
   readonly ModoFormulario = ModoFormulario;
   readonly Object = Object;
   
@@ -28,19 +34,28 @@ export class MineralComponent implements OnInit {
   readonly texturas = Object.values(Textura);
   readonly clasificaciones = Object.values(Clasificacion);
 
+  // Computed para obtener el formulario activo
+  formularioActivo = computed(() => {
+    return this.modoActual() === ModoFormulario.Extendido
+      ? this.formExtendido.formulario
+      : this.formReducido.formulario;
+  });
+
   constructor(
-    public mineralForm: MineralFormService,
+    private formExtendido: MineralFormExtendidoService,
+    private formReducido: MineralFormReducidoService,
     private criterioSvc: CriterioService
   ) {}
 
-  ngOnInit(): void {
-    this.mineralForm.modoActual$.subscribe(modo => {
-      this.modoActual.set(modo);
-    });
-  }
-
   cambiarModo(modo: ModoFormulario): void {
-    this.mineralForm.cambiarModo(modo);
+    // Guardar valores del formulario actual
+    const valoresActuales = this.formularioActivo().value;
+    
+    // Cambiar el modo
+    this.modoActual.set(modo);
+    
+    // Transferir valores al nuevo formulario
+    this.formularioActivo().patchValue(valoresActuales);
   }
 
   cambiarCriterio(criterio: CriterioValidacion): void {
@@ -52,14 +67,16 @@ export class MineralComponent implements OnInit {
   }
 
   analizar(): void {
-    if (this.mineralForm.formulario.invalid) {
-      this.mineralForm.formulario.markAllAsTouched();
+    const form = this.formularioActivo();
+    
+    if (form.invalid) {
+      form.markAllAsTouched();
       this.esValido.set(false);
       this.ultimoMineral.set(null);
       return;
     }
 
-    const formValue = this.mineralForm.formulario.value;
+    const formValue = form.value;
     
     const mineral: Mineral = {
       id: formValue.id!,
@@ -81,7 +98,11 @@ export class MineralComponent implements OnInit {
   }
 
   limpiar(): void {
-    this.mineralForm.reset();
+    if (this.modoActual() === ModoFormulario.Extendido) {
+      this.formExtendido.reset();
+    } else {
+      this.formReducido.reset();
+    }
     this.esValido.set(null);
     this.ultimoMineral.set(null);
   }

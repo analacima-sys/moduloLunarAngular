@@ -1,19 +1,10 @@
-// src/app/services/mineral-form.service.ts
+// src/app/services/mineral-form-extendido.service.ts
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs';
 import { TipoRoca, TamanoGrano, Clasificacion, Textura } from '../../types';
 
-export enum ModoFormulario {
-  Extendido = 'extendido',
-  Reducido = 'reducido'
-}
-
 @Injectable({ providedIn: 'root' })
-export class MineralFormService {
-  private modoSubject = new BehaviorSubject<ModoFormulario>(ModoFormulario.Extendido);
-  modoActual$ = this.modoSubject.asObservable();
-
+export class MineralFormExtendidoService {
   formulario: FormGroup;
 
   constructor(private fb: FormBuilder) {
@@ -51,10 +42,6 @@ export class MineralFormService {
       // Textura
       textura: [Textura.Vitrea, Validators.required]
     });
-  }
-
-  cambiarModo(modo: ModoFormulario): void {
-    this.modoSubject.next(modo);
   }
 
   reset(): void {

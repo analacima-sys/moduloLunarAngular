@@ -61,7 +61,7 @@
     </div>
 
     <!-- FORMULARIO -->
-    <form [formGroup]="mineralForm.formulario" (ngSubmit)="analizar()">
+    <form [formGroup]="formularioActivo()" (ngSubmit)="analizar()">
 
       <!-- ID y Nombre -->
       <div class="row">
@@ -73,7 +73,7 @@
                  class="form-control" 
                  [placeholder]="modoActual() === ModoFormulario.Reducido ? labelId : 'Ej: AB1234CD'">
           
-          @if (mineralForm.formulario.get('id')?.touched && mineralForm.formulario.get('id')?.invalid) {
+          @if (formularioActivo().get('id')?.touched && formularioActivo().get('id')?.invalid) {
             <div class="hint-text text-danger">
               {{ formatoSalida() === 'americano' 
                 ? 'Invalid ID. Format: 2 letters, 4 numbers, 2 letters.' 
@@ -88,10 +88,10 @@
           }
           <input formControlName="nombre" 
                  class="form-control"
-                 [class.is-invalid]="mineralForm.formulario.get('nombre')?.touched && mineralForm.formulario.get('nombre')?.invalid"
+                 [class.is-invalid]="formularioActivo().get('nombre')?.touched && formularioActivo().get('nombre')?.invalid"
                  [placeholder]="modoActual() === ModoFormulario.Reducido ? labelNombre : ''">
           
-          @if (mineralForm.formulario.get('nombre')?.touched && mineralForm.formulario.get('nombre')?.invalid) {
+          @if (formularioActivo().get('nombre')?.touched && formularioActivo().get('nombre')?.invalid) {
             <div class="hint-text text-danger">
               {{ formatoSalida() === 'americano' 
                 ? 'Name is required.' 
@@ -215,7 +215,7 @@
       <div class="d-flex gap-2">
         <button type="submit" 
                 class="btn btn-primary"
-                [disabled]="mineralForm.formulario.invalid">
+                [disabled]="formularioActivo().invalid">
           {{ textoAnalizar }}
         </button>
         <button type="button" 
