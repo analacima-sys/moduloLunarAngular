@@ -23,7 +23,7 @@ body {
   background-attachment: fixed;
   background-repeat: no-repeat;
   min-height: 100vh;
-  padding: 0;
+  padding: 20px 0;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   position: relative;
 }
@@ -50,7 +50,6 @@ body.loading::before {
 .container {
   position: relative;
   z-index: 1;
-  padding-bottom: 40px;
 }
 
 /* ===== FIELDSETS Y LEGENDS ===== */
@@ -364,12 +363,12 @@ select::placeholder {
 
 @media (max-width: 768px) {
   body {
+    padding: 10px 0;
     background-attachment: scroll;
   }
 
   .container {
     padding: 0 10px;
-    padding-bottom: 30px;
   }
 
   .emoji-result {

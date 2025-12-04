@@ -1,0 +1,62 @@
+<!-- src/app/components/navbar/navbar.component.html -->
+<nav class="navbar navbar-dark navbar-expand-lg fixed-top">
+  <div class="container-fluid">
+    <!-- Logo y título -->
+    <a class="navbar-brand d-flex align-items-center" href="#">
+      <span class="logo-icon me-2">🌙</span>
+      <span class="brand-text">Módulo Lunar</span>
+    </a>
+
+    <!-- Botón hamburguesa para móvil -->
+    <button class="navbar-toggler" 
+            type="button" 
+            (click)="toggleMenu()"
+            [attr.aria-expanded]="menuAbierto()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Contenido del navbar -->
+    <div class="collapse navbar-collapse" 
+         [class.show]="menuAbierto()"
+         id="navbarContent">
+      
+      <!-- Botones de navegación -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <button class="nav-link btn btn-link" (click)="verInventario()">
+            <span class="nav-icon">📦</span>
+            Ver Inventario
+          </button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link btn btn-link" (click)="verMisiones()">
+            <span class="nav-icon">🚀</span>
+            Misiones
+          </button>
+        </li>
+      </ul>
+
+      <!-- Información del astronauta -->
+      <div class="navbar-text astronaut-info">
+        <div class="astronaut-card">
+          <div class="astronaut-avatar">👨‍🚀</div>
+          <div class="astronaut-details">
+            <div class="astronaut-name">{{ astronauta().nombre }}</div>
+            <div class="astronaut-rank">
+              {{ astronauta().rango }} | {{ astronauta().mision }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botón cerrar sesión -->
+      <button class="btn btn-outline-light btn-sm ms-3" (click)="cerrarSesion()">
+        <span class="nav-icon">🚪</span>
+        Salir
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Espaciador para evitar que el contenido quede detrás del navbar fijo -->
+<div class="navbar-spacer"></div>
