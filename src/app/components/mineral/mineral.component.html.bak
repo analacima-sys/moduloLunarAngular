@@ -1,25 +1,87 @@
 <!-- src/app/components/mineral/mineral.component.html -->
 
+<!-- PANTALLA DE CONFIGURACIÓN -->
+<div class="card">
+  <div class="card-header bg-primary text-white">
+    <h5 class="mb-0">Configuración</h5>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <!-- Columna 1: Modo de formulario -->
+      <div class="col-lg-4 mb-3 mb-lg-0">
+        <fieldset>
+          <legend class="form-label">Modo de formulario:</legend>
+          <div class="btn-group w-100" aria-label="Selección de modo de formulario">
+            <input type="radio" class="btn-check" name="modoFormulario" id="btnExtendido" value="extendido" checked
+              autocomplete="off" [class.active]="modoActual() === ModoFormulario.Extendido"
+              (click)="cambiarModo(ModoFormulario.Extendido)" />
+            <label class="btn btn-outline-primary" for="btnExtendido">Extendido</label>
+
+            <input type="radio" class="btn-check" name="modoFormulario" id="btnReducido" value="reducido"
+              autocomplete="off" [class.active]="modoActual() === ModoFormulario.Reducido"
+              (click)="cambiarModo(ModoFormulario.Reducido)" />
+            <label class="btn btn-outline-primary" for="btnReducido">Reducido</label>
+          </div>
+        </fieldset>
+      </div>
+
+      <!-- Columna 2: Criterio de validación -->
+      <div class="col-lg-4 mb-3 mb-lg-0">
+        <fieldset>
+          <legend class="form-label">Criterio de validación:</legend>
+          <select class="form-select" [value]="criterioSeleccionado()"
+            (change)="cambiarCriterio($any($event.target).value)">
+            @for (c of Object.values(criterios); track c) {
+            <option [value]="c">{{ traducir(c) }}</option>
+            }
+          </select>
+        </fieldset>
+      </div>
+
+      <!-- Columna 3: Formato de salida -->
+      <div class="col-lg-4">
+        <fieldset>
+          <legend class="form-label">Formato de salida:</legend>
+          <div class="btn-group w-100" aria-label="Selección de formato de salida">
+            <input type="radio" class="btn-check" name="formatoSalida" id="btnEuropeo" value="europeo" checked
+              autocomplete="off" [class.active]="formatoSalida() === 'europeo'" (click)="cambiarFormato('europeo')" />
+            <label class="btn btn-outline-primary" for="btnEuropeo">Europeo</label>
+
+            <input type="radio" class="btn-check" name="formatoSalida" id="btnAmericano" value="americano"
+              autocomplete="off" [class.active]="formatoSalida() === 'americano'"
+              (click)="cambiarFormato('americano')" />
+            <label class="btn btn-outline-primary" for="btnAmericano">Americano</label>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- PANTALLA DE FORMULARIO -->
 <div class="card">
   <div class="card-header bg-secondary text-white">
-    <h5 class="mb-0">Formulario de entrada</h5>
+    <h5 class="mb-0">
+      Formulario de entrada
+      <!-- {{ formatoSalida() === 'americano' ? 'Mineral Entry' : 'Entrada de minerales' }}-->
+    </h5>
   </div>
+  <!-- formulario -->
   <div class="card-body">
     <form [formGroup]="formularioActivo()" (ngSubmit)="analizar()">
 
       <!-- ID y Nombre -->
       <div class="row">
         <div class="col-lg-6 mb-3">
-          @if (configSvc.modo() === ModoFormulario.Extendido) {
+          @if (modoActual() === ModoFormulario.Extendido) {
           <label class="form-label-extended">{{ labelId }}</label>
           }
           <input formControlName="id" class="form-control"
-            [placeholder]="configSvc.modo() === ModoFormulario.Reducido ? labelId : 'Ej: AB1234CD'">
+            [placeholder]="modoActual() === ModoFormulario.Reducido ? labelId : 'Ej: AB1234CD'">
 
           @if (formularioActivo().get('id')?.touched && formularioActivo().get('id')?.invalid) {
           <div class="hint-text text-danger">
-            {{ configSvc.formato() === 'americano'
+            {{ formatoSalida() === 'americano'
             ? 'Invalid ID. Format: 2 letters, 4 numbers, 2 letters.'
             : 'ID inválido. Formato: 2 letras, 4 números, 2 letras.' }}
           </div>
@@ -27,16 +89,16 @@
         </div>
 
         <div class="col-lg-6 mb-3">
-          @if (configSvc.modo() === ModoFormulario.Extendido) {
+          @if (modoActual() === ModoFormulario.Extendido) {
           <label class="form-label-extended">{{ labelNombre }}</label>
           }
           <input formControlName="nombre" class="form-control"
             [class.is-invalid]="formularioActivo().get('nombre')?.touched && formularioActivo().get('nombre')?.invalid"
-            [placeholder]="configSvc.modo() === ModoFormulario.Reducido ? labelNombre : ''">
+            [placeholder]="modoActual() === ModoFormulario.Reducido ? labelNombre : ''">
 
           @if (formularioActivo().get('nombre')?.touched && formularioActivo().get('nombre')?.invalid) {
           <div class="hint-text text-danger">
-            {{ configSvc.formato() === 'americano'
+            {{ formatoSalida() === 'americano'
             ? 'Name is required.'
             : 'El nombre es requerido.' }}
           </div>
@@ -102,7 +164,7 @@
           <label class="form-label-extended">{{ labelTemperatura }}</label>
           <input type="number" formControlName="temperaturaFormacion" class="form-control" placeholder="">
           <div class="hint-text">
-            {{ configSvc.formato() === 'americano' ? 'Range: -100 to 100 K' : 'Rango: -100 a 100 K' }}
+            {{ formatoSalida() === 'americano' ? 'Range: -100 to 100 K' : 'Rango: -100 a 100 K' }}
           </div>
         </div>
       </div>
@@ -112,13 +174,13 @@
         <div class="col-12 mb-3">
           <label class="form-label-extended">{{ labelEstructura }}</label>
           <textarea formControlName="estructura" rows="2" class="form-control"
-            [placeholder]="configSvc.formato() === 'americano' ? 'Structure description' : 'Descripción de la estructura'"></textarea>
+            [placeholder]="formatoSalida() === 'americano' ? 'Structure description' : 'Descripción de la estructura'"></textarea>
         </div>
 
         <div class="col-12 mb-3">
           <label class="form-label-extended">{{ labelFormaGranos }}</label>
           <textarea formControlName="formaGranos" rows="2" class="form-control"
-            [placeholder]="configSvc.formato() === 'americano' ? 'Grain shape description' : 'Descripción de la forma de los granos'"></textarea>
+            [placeholder]="formatoSalida() === 'americano' ? 'Grain shape description' : 'Descripción de la forma de los granos'"></textarea>
         </div>
       </div>
 
@@ -163,9 +225,9 @@
       }
     </div>
     <p class="mt-2">
-      {{ ultimoMineral()?.nombre || (configSvc.formato() === 'americano' ? 'The mineral' : 'El mineral') }}
+      {{ ultimoMineral()?.nombre || (formatoSalida() === 'americano' ? 'The mineral' : 'El mineral') }}
       {{ esValido() ? textoCumple : textoNoCumple }}
-      {{ textoCriterio }} {{ traducir(configSvc.criterio()) }}.
+      {{ textoCriterio }} {{ traducir(criterioSeleccionado()) }}.
     </p>
   </div>
 </div>

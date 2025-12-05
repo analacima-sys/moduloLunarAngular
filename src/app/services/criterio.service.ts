@@ -1,16 +1,11 @@
 // src/app/services/criterio.service.ts
 import { Injectable } from '@angular/core';
 import { Mineral, TipoRoca, TamanoGrano, Textura } from '../../types';
-
-export enum CriterioValidacion {
-  Igneas = 'Criterio ígneas',
-  Metamorficas = 'Criterio metamórficas',
-  Sedimentarias = 'Criterio sedimentarias'
-}
+// Importa el enum del archivo compartido
+import { CriterioValidacion } from '../shared/enums';
 
 @Injectable({ providedIn: 'root' })
 export class CriterioService {
-  
   /**
    * Valida un mineral según el criterio seleccionado
    */
@@ -18,20 +13,19 @@ export class CriterioService {
     switch (criterio) {
       case CriterioValidacion.Igneas:
         // Criterio Ígneas: Grupo ígneas + Grano muy grueso
-        return mineral.grupo === TipoRoca.Ignea &&
-               mineral.tamanoGrano === TamanoGrano.MuyGrueso;
+        return mineral.grupo === TipoRoca.Ignea && mineral.tamanoGrano === TamanoGrano.MuyGrueso;
 
       case CriterioValidacion.Metamorficas:
         // Criterio Metamórficas: Grupo metamórfica + Grano medio o fino + Textura vítrea
-        return mineral.grupo === TipoRoca.Metamorfica &&
-               (mineral.tamanoGrano === TamanoGrano.Medio ||
-                mineral.tamanoGrano === TamanoGrano.Fino) &&
-               mineral.textura === Textura.Vitrea;
+        return (
+          mineral.grupo === TipoRoca.Metamorfica &&
+          (mineral.tamanoGrano === TamanoGrano.Medio || mineral.tamanoGrano === TamanoGrano.Fino) &&
+          mineral.textura === Textura.Vitrea
+        );
 
       case CriterioValidacion.Sedimentarias:
         // Criterio Sedimentarias: Grupo sedimentaria + Textura fanerítica
-        return mineral.grupo === TipoRoca.Sedimentaria &&
-               mineral.textura === Textura.Faneritica;
+        return mineral.grupo === TipoRoca.Sedimentaria && mineral.textura === Textura.Faneritica;
 
       default:
         return false;
@@ -52,6 +46,6 @@ export class CriterioService {
    */
   kelvinToFahrenheit(kelvin: number): number {
     const celsius = this.kelvinToCelsius(kelvin);
-    return (celsius * 9 / 5) + 32;
+    return (celsius * 9) / 5 + 32;
   }
 }

@@ -1,0 +1,15 @@
+/* src/app/components/panel-configuracion/panel-configuracion.component.css */
+.panel-configuracion .btn-group {
+  margin-bottom: 0.5rem;
+}
+
+.panel-configuracion fieldset {
+  margin-bottom: 0;
+}
+
+.panel-configuracion legend {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #495057;
+}

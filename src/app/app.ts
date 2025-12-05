@@ -2,14 +2,16 @@
 import { Component } from '@angular/core';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { MineralComponent } from './components/mineral/mineral.component';
+import { PanelConfiguracionComponent } from "./components/panel-configuracion/panel-configuracion.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [NavbarComponent, MineralComponent],
+  imports: [NavbarComponent, MineralComponent, PanelConfiguracionComponent],
   template: `
     <app-navbar></app-navbar>
     <div class="container">
+      <app-panel-configuracion></app-panel-configuracion>
       <app-mineral></app-mineral>
     </div>
   `
