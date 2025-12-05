@@ -41,19 +41,13 @@
         <div class="astronaut-card">
           <div class="astronaut-avatar">👨‍🚀</div>
           <div class="astronaut-details">
-            <div class="astronaut-name">{{ astronauta().nombre }}</div>
+            <div class="astronaut-name">{{ astronauta.dameNombreCompleto() }}</div>
             <div class="astronaut-rank">
-              {{ astronauta().rango }} | {{ astronauta().mision }}
+              ID: {{ astronauta.dameIdentificador() }} | Edad: {{ astronauta.dameEdad() }}
             </div>
           </div>
         </div>
       </div>
-
-      <!-- Botón cerrar sesión -->
-      <button class="btn btn-outline-light btn-sm ms-3" (click)="cerrarSesion()">
-        <span class="nav-icon">🚪</span>
-        Salir
-      </button>
     </div>
   </div>
 </nav>

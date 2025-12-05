@@ -1,6 +1,7 @@
 // src/app/components/navbar/navbar.component.ts
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AstronautaService } from '../../services/astronauta.service';
 
 @Component({
   standalone: true,
@@ -10,15 +11,14 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule]
 })
 export class NavbarComponent {
-  // Datos del astronauta (más adelante podrían venir de un servicio)
-  astronauta = signal({
-    nombre: 'Neil Armstrong',
-    rango: 'Comandante',
-    mision: 'Apollo 11'
-  });
-
   // Control del menú móvil
   menuAbierto = signal(false);
+
+  constructor(private astronautaSvc: AstronautaService) {}
+
+  get astronauta() {
+    return this.astronautaSvc.astronauta;
+  }
 
   toggleMenu(): void {
     this.menuAbierto.update(v => !v);
@@ -32,10 +32,5 @@ export class NavbarComponent {
   verMisiones(): void {
     // TODO: Implementar navegación a misiones
     console.log('Ver misiones');
-  }
-
-  cerrarSesion(): void {
-    // TODO: Implementar cierre de sesión
-    console.log('Cerrar sesión');
   }
 }
