@@ -1,5 +1,5 @@
 // src/app/components/mineral/mineral.component.ts
-import { Component, signal, computed } from '@angular/core';
+import { Component, signal, computed, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MineralFormExtendidoService } from '../../services/mineral-form-extendido.service';
@@ -8,29 +8,31 @@ import { CriterioService } from '../../services/criterio.service';
 import { ConfiguracionService } from '../../services/configuracion.service';
 import { PanelConfiguracionComponent } from '../panel-configuracion/panel-configuracion.component';
 import { ModoFormulario } from '../../shared/enums';
-import {
-  Mineral,
-  TipoRoca,
-  TamanoGrano,
-  Clasificacion,
-  Textura,
-  TRADUCCIONES_EN,
-} from '../../../types';
+import { Mineral, TipoRoca, TamanoGrano, Clasificacion, Textura, TRADUCCIONES_EN } from '../../../types';
 
 @Component({
   standalone: true,
   selector: 'app-mineral',
   templateUrl: './mineral.component.html',
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, PanelConfiguracionComponent],
+  imports: [
+    CommonModule, 
+    FormsModule, 
+    ReactiveFormsModule,
+    PanelConfiguracionComponent
+  ]
 })
-export class MineralComponent {
+export class MineralComponent implements OnInit, OnDestroy {
   // Exponer ModoFormulario para la plantilla
   readonly ModoFormulario = ModoFormulario;
-
+  
   esValido = signal<boolean | null>(null);
   ultimoMineral = signal<Mineral | null>(null);
-
-  readonly Object = Object; // Exponer Object para la plantilla si lo necesitas
+  
+  // Propiedad para controlar cuándo mostrar el panel completo
+  mostrarPanelConfiguracion = signal<boolean>(false);
+  
+  // Listener para cambios de tamaño de ventana
+  private resizeListener: () => void;
 
   readonly tiposRoca = Object.values(TipoRoca);
   readonly tamaniosGrano = Object.values(TamanoGrano);
@@ -49,12 +51,31 @@ export class MineralComponent {
     private formExtendido: MineralFormExtendidoService,
     private formReducido: MineralFormReducidoService,
     private criterioSvc: CriterioService
-  ) {}
+  ) {
+    this.resizeListener = this.actualizarVisibilidadPanel.bind(this);
+  }
 
-  // Resto de los métodos se mantienen igual...
+  ngOnInit(): void {
+    // Configurar visibilidad inicial
+    this.actualizarVisibilidadPanel();
+    
+    // Escuchar cambios de tamaño de ventana
+    window.addEventListener('resize', this.resizeListener);
+  }
+
+  ngOnDestroy(): void {
+    // Limpiar el listener cuando el componente se destruya
+    window.removeEventListener('resize', this.resizeListener);
+  }
+
+  private actualizarVisibilidadPanel(): void {
+    // Mostrar panel completo solo en pantallas pequeñas (< 992px)
+    this.mostrarPanelConfiguracion.set(window.innerWidth < 992);
+  }
+
   analizar(): void {
     const form = this.formularioActivo();
-
+    
     if (form.invalid) {
       form.markAllAsTouched();
       this.esValido.set(false);
@@ -63,7 +84,7 @@ export class MineralComponent {
     }
 
     const formValue = form.value;
-
+    
     const mineral: Mineral = {
       id: formValue.id!,
       nombre: formValue.nombre!,
@@ -75,7 +96,7 @@ export class MineralComponent {
       temperaturaFormacion: Number(formValue.temperaturaFormacion),
       estructura: formValue.estructura || '',
       formaGranos: formValue.formaGranos || '',
-      textura: formValue.textura!,
+      textura: formValue.textura!
     };
 
     const valido = this.criterioSvc.validar(mineral, this.configSvc.criterio());
@@ -128,9 +149,7 @@ export class MineralComponent {
   }
 
   get labelTamanoCristales(): string {
-    return this.configSvc.formato() === 'americano'
-      ? 'Crystal size (0-10)'
-      : 'Tamaño de cristales (0-10)';
+    return this.configSvc.formato() === 'americano' ? 'Crystal size (0-10)' : 'Tamaño de cristales (0-10)';
   }
 
   get labelTamanoGrano(): string {
@@ -142,8 +161,8 @@ export class MineralComponent {
   }
 
   get labelTemperatura(): string {
-    return this.configSvc.formato() === 'americano'
-      ? 'Formation temperature (K)'
+    return this.configSvc.formato() === 'americano' 
+      ? 'Formation temperature (K)' 
       : 'Temperatura de formación (K)';
   }
 

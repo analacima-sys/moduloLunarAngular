@@ -11,7 +11,6 @@ import { PanelConfiguracionComponent } from "./components/panel-configuracion/pa
   template: `
     <app-navbar></app-navbar>
     <div class="container">
-      <app-panel-configuracion></app-panel-configuracion>
       <app-mineral></app-mineral>
     </div>
   `

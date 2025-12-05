@@ -1,7 +1,11 @@
 <!-- src/app/components/mineral/mineral.component.html -->
+<!-- Panel de configuración COMPLETO solo para móvil -->
+@if (mostrarPanelConfiguracion()) {
+  <app-panel-configuracion></app-panel-configuracion>
+}
 
 <!-- PANTALLA DE FORMULARIO -->
-<div class="card">
+<div class="card" [class.mt-3]="mostrarPanelConfiguracion()">
   <div class="card-header bg-secondary text-white">
     <h5 class="mb-0">Formulario de entrada</h5>
   </div>

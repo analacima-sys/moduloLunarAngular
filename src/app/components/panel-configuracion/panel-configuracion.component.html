@@ -10,29 +10,16 @@
         <fieldset>
           <legend class="form-label">Modo de formulario:</legend>
           <div class="btn-group w-100" aria-label="Selección de modo de formulario">
-            <input
-              type="radio"
-              class="btn-check"
-              name="modoFormulario"
-              id="btnExtendido"
-              value="extendido"
-              checked
-              autocomplete="off"
-              [checked]="configSvc.modo() === ModoFormulario.Extendido"
-              (click)="cambiarModo(ModoFormulario.Extendido)"
-            />
+            <input type="radio" class="btn-check" name="modoFormulario" id="btnExtendido" 
+                   value="extendido" checked autocomplete="off"
+                   [checked]="configSvc.modo() === ModoFormulario.Extendido"
+                   (click)="cambiarModo(ModoFormulario.Extendido)" />
             <label class="btn btn-outline-primary" for="btnExtendido">Extendido</label>
 
-            <input
-              type="radio"
-              class="btn-check"
-              name="modoFormulario"
-              id="btnReducido"
-              value="reducido"
-              autocomplete="off"
-              [checked]="configSvc.modo() === ModoFormulario.Reducido"
-              (click)="cambiarModo(ModoFormulario.Reducido)"
-            />
+            <input type="radio" class="btn-check" name="modoFormulario" id="btnReducido" 
+                   value="reducido" autocomplete="off"
+                   [checked]="configSvc.modo() === ModoFormulario.Reducido"
+                   (click)="cambiarModo(ModoFormulario.Reducido)" />
             <label class="btn btn-outline-primary" for="btnReducido">Reducido</label>
           </div>
         </fieldset>
@@ -42,13 +29,12 @@
       <div class="col-lg-4 mb-3 mb-lg-0">
         <fieldset>
           <legend class="form-label">Criterio de validación:</legend>
-          <select
-            class="form-select"
-            [value]="configSvc.criterio()"
-            (change)="cambiarCriterio($event)"
-          >
-            @for (c of Object.values(CriterioValidacion); track c) {
-            <option [value]="c">{{ c }}</option>
+          <select class="form-select" 
+                  [value]="configSvc.criterio()"
+                  (change)="cambiarCriterio($event)">
+            <!-- USA EL GETTER criteriosArray en lugar de Object.values() -->
+            @for (c of criteriosArray; track c) {
+              <option [value]="c">{{ c }}</option>
             }
           </select>
         </fieldset>
@@ -59,29 +45,16 @@
         <fieldset>
           <legend class="form-label">Formato de salida:</legend>
           <div class="btn-group w-100" aria-label="Selección de formato de salida">
-            <input
-              type="radio"
-              class="btn-check"
-              name="formatoSalida"
-              id="btnEuropeo"
-              value="europeo"
-              checked
-              autocomplete="off"
-              [checked]="configSvc.formato() === 'europeo'"
-              (click)="cambiarFormato('europeo')"
-            />
+            <input type="radio" class="btn-check" name="formatoSalida" id="btnEuropeo" 
+                   value="europeo" checked autocomplete="off"
+                   [checked]="configSvc.formato() === 'europeo'"
+                   (click)="cambiarFormato('europeo')" />
             <label class="btn btn-outline-primary" for="btnEuropeo">Europeo</label>
 
-            <input
-              type="radio"
-              class="btn-check"
-              name="formatoSalida"
-              id="btnAmericano"
-              value="americano"
-              autocomplete="off"
-              [checked]="configSvc.formato() === 'americano'"
-              (click)="cambiarFormato('americano')"
-            />
+            <input type="radio" class="btn-check" name="formatoSalida" id="btnAmericano" 
+                   value="americano" autocomplete="off"
+                   [checked]="configSvc.formato() === 'americano'"
+                   (click)="cambiarFormato('americano')" />
             <label class="btn btn-outline-primary" for="btnAmericano">Americano</label>
           </div>
         </fieldset>

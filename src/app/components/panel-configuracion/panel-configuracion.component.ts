@@ -10,18 +10,19 @@ import { ModoFormulario, CriterioValidacion, FormatoSalida } from '../../shared/
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './panel-configuracion.component.html',
-  styleUrls: ['./panel-configuracion.component.css'],
+  styleUrls: ['./panel-configuracion.component.css']
 })
 export class PanelConfiguracionComponent {
-  // Usamos el servicio compartido
   constructor(public configSvc: ConfiguracionService) {}
 
-  // Enums para usar en la plantilla
   readonly ModoFormulario = ModoFormulario;
   readonly CriterioValidacion = CriterioValidacion;
-  readonly Object = Object; // Exponer Object para la plantilla
+  
+  // Getter para los criterios
+  get criteriosArray() {
+    return Object.values(CriterioValidacion);
+  }
 
-  // Métodos para cambiar la configuración
   cambiarModo(modo: ModoFormulario): void {
     this.configSvc.cambiarModo(modo);
   }

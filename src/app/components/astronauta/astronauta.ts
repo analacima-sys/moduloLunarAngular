@@ -1,16 +1,15 @@
-// src/app/components/astronauta/astronauta.component.ts
-import { Component, OnInit } from '@angular/core';
+// src/app/components/astronauta/astronauta.ts
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { AstronautaService } from '../../services/astronauta.service';
 
 @Component({
   selector: 'app-astronauta',
-  templateUrl: './astronauta.html',
-  styleUrls: ['./astronauta.css']
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './astronauta.html',  
+  styleUrls: ['./astronauta.css']    
 })
-export class AstronautaComponent implements OnInit {
+export class AstronautaComponent {
   constructor(public astronautaSvc: AstronautaService) {}
-
-  ngOnInit(): void {
-    // Los datos vienen del servicio
-  }
 }

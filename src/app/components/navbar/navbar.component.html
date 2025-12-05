@@ -1,46 +1,58 @@
 <!-- src/app/components/navbar/navbar.component.html -->
-<nav class="navbar navbar-dark navbar-expand-lg fixed-top">
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: rgba(42, 46, 56, 0.95);">
   <div class="container-fluid">
-    <!-- Logo y título -->
+    
+    <!-- Logo y marca -->
     <a class="navbar-brand d-flex align-items-center" href="#">
-      <span class="logo-icon me-2">🌙</span>
+      <span class="logo-icon me-2">🌕</span>
       <span class="brand-text">Módulo Lunar</span>
     </a>
 
     <!-- Botón hamburguesa para móvil -->
-    <button class="navbar-toggler" 
-            type="button" 
-            (click)="toggleMenu()"
-            [attr.aria-expanded]="menuAbierto()">
+    <button class="navbar-toggler" type="button" 
+            data-bs-toggle="collapse" 
+            data-bs-target="#navbarContent"
+            aria-controls="navbarContent" 
+            aria-expanded="false" 
+            aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <!-- Contenido del navbar -->
-    <div class="collapse navbar-collapse" 
-         [class.show]="menuAbierto()"
-         id="navbarContent">
+    <div class="collapse navbar-collapse" id="navbarContent">
       
-      <!-- Botones de navegación -->
+      <!-- Elementos de navegación -->
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <button class="nav-link btn btn-link" (click)="verInventario()">
-            <span class="nav-icon">📦</span>
-            Ver Inventario
-          </button>
+          <a class="nav-link active" aria-current="page" href="#">Inicio</a>
         </li>
         <li class="nav-item">
-          <button class="nav-link btn btn-link" (click)="verMisiones()">
-            <span class="nav-icon">🚀</span>
-            Misiones
-          </button>
+          <a class="nav-link" href="#">Minerales</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Reportes</a>
         </li>
       </ul>
 
-      <!-- Información del astronauta -->
-      <app-astronauta></app-astronauta>
+      <!-- Contenedor para elementos a la derecha -->
+      <div class="d-flex align-items-center gap-3">
+        
+        <!-- Panel de configuración compacto (solo desktop) -->
+        <app-panel-configuracion-navbar></app-panel-configuracion-navbar>
+        
+        <!-- Astronauta -->
+        <app-astronauta></app-astronauta>
+        
+        <!-- Botón de cerrar sesión -->
+        <button class="btn btn-outline-light btn-sm">
+          <span>🚀</span>
+          <span>Cerrar sesión</span>
+        </button>
+        
+      </div>
     </div>
   </div>
 </nav>
 
-<!-- Espaciador para evitar que el contenido quede detrás del navbar fijo -->
+<!-- Espaciador para contenido -->
 <div class="navbar-spacer"></div>
