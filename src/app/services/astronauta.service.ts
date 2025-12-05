@@ -9,6 +9,6 @@ export class AstronautaService {
 
   constructor() {
     // Inicializar con los datos del astronauta
-    this.astronauta = new Astronauta("AH31639", "Agmunsen Haakon", 41);
+    this.astronauta = new Astronauta('AH31639', 'Agmunsen Haakon', 41);
   }
 }

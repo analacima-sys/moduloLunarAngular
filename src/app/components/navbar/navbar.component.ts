@@ -1,24 +1,20 @@
 // src/app/components/navbar/navbar.component.ts
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AstronautaService } from '../../services/astronauta.service';
+import { RouterLink } from '@angular/router';
+import { AstronautaComponent } from '../astronauta/astronauta';
 
 @Component({
   standalone: true,
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
-  imports: [CommonModule]
+  imports: [CommonModule, RouterLink, AstronautaComponent]
 })
 export class NavbarComponent {
   // Control del menú móvil
   menuAbierto = signal(false);
 
-  constructor(private astronautaSvc: AstronautaService) {}
-
-  get astronauta() {
-    return this.astronautaSvc.astronauta;
-  }
 
   toggleMenu(): void {
     this.menuAbierto.update(v => !v);
