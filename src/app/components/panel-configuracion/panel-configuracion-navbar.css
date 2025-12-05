@@ -13,8 +13,8 @@
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   transition: all 0.3s ease;
-  min-width: 400px; /* Más ancho aún */
-  max-width: 450px; /* Más ancho aún */
+  min-width: 400px; 
+  max-width: 450px; 
 }
 
 .panel-configuracion-card:hover {
@@ -101,16 +101,11 @@
   text-align: center;
 }
 
-/* Todos los controles con el mismo ancho - AHORA MÁS ANCHO */
+/* Todos los controles con el mismo ancho */
 .panel-configuracion-card .config-item button,
 .panel-configuracion-card .config-item select {
-  min-width: 110px; /* Más ancho para "sedimentarias" */
+  min-width: 110px; 
   box-sizing: border-box;
-}
-
-/* OPCIONAL: Si quieres que el select sea un poco más ancho que los botones */
-.config-item:nth-child(2) select {
-  min-width: 115px; /* 5px más que los botones si es necesario */
 }
 
 .panel-configuracion-card .btn-group {
@@ -121,6 +116,6 @@
 /* Ocultar en pantallas pequeñas */
 @media (max-width: 991.98px) {
   .panel-configuracion-compact {
-    display: none !important;
+    display: none;
   }
 }
