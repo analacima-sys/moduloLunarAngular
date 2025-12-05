@@ -54,48 +54,10 @@
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
-/* Botón de cerrar sesión */
-.btn-outline-light {
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  color: #fff;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-}
 
-.btn-outline-light:hover {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: #fff;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-
-/* Espaciador para contenido debajo del navbar fijo */
-.navbar-spacer {
-  height: 80px;
-}
 
 /* Responsive */
 @media (max-width: 991.98px) {
-  .navbar-collapse {
-    background: rgba(42, 46, 56, 0.98);
-    padding: 1rem;
-    margin-top: 1rem;
-    border-radius: 0.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .navbar-nav {
-    margin-bottom: 1rem;
-  }
-
-  .nav-link {
-    justify-content: flex-start;
-    padding: 0.75rem 1rem;
-    margin-bottom: 0.25rem;
-  }
-
   .astronaut-info {
     margin-bottom: 1rem;
   }
@@ -104,26 +66,9 @@
     width: 100%;
     justify-content: flex-start;
   }
-
-  .btn-outline-light {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .navbar-spacer {
-    height: 70px;
-  }
 }
 
 @media (max-width: 576px) {
-  .brand-text {
-    font-size: 1rem;
-  }
-
-  .logo-icon {
-    font-size: 1.5rem;
-  }
-
   .astronaut-name {
     font-size: 0.9rem;
   }
