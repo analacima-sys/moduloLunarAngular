@@ -6,22 +6,19 @@
       
       <!-- Modo de formulario -->
       <div class="config-item">
-        <span class="config-label">Modo:</span>
+        <span class="config-label">Modo</span>
         <button class="btn btn-sm btn-outline-light" 
-                (click)="cambiarModo()"
-                style="padding: 0.1rem 0.4rem; font-size: 0.65rem;">
+                (click)="cambiarModo()">
           {{ getModoTexto() }}
         </button>
       </div>
 
       <!-- Criterio de validación -->
       <div class="config-item">
-        <span class="config-label">Criterio:</span>
+        <span class="config-label">Criterio</span>
         <select class="form-select form-select-sm" 
                 [value]="configSvc.criterio()"
-                (change)="cambiarCriterio($event)"
-                style="padding: 0.1rem 1rem 0.1rem 0.3rem; font-size: 0.65rem; height: 1.4rem;">
-          <!-- USA EL GETTER criterios en lugar de Object.values() -->
+                (change)="cambiarCriterio($event)">
           @for (c of criterios; track c) {
             <option [value]="c">{{ c.split(' ')[1] }}</option>
           }
@@ -30,10 +27,9 @@
 
       <!-- Formato de salida -->
       <div class="config-item">
-        <span class="config-label">Formato:</span>
+        <span class="config-label">Formato</span>
         <button class="btn btn-sm btn-outline-light" 
-                (click)="cambiarFormato()"
-                style="padding: 0.1rem 0.4rem; font-size: 0.65rem;">
+                (click)="cambiarFormato()">
           {{ getFormatoTexto() }}
         </button>
       </div>
