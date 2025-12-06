@@ -36,6 +36,17 @@
   height: 80px;
 }
 
+/* OCULTAR el panel en navbar para tablet y móvil */
+.navbar-panel-container {
+  display: block;
+}
+
+@media (max-width: 991.98px) {
+  .navbar-panel-container {
+    display: none;
+  }
+}
+
 /* Responsive */
 @media (max-width: 991.98px) {
   .navbar-collapse {

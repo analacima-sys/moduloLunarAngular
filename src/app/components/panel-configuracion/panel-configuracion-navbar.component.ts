@@ -1,5 +1,5 @@
 // src/app/components/panel-configuracion/panel-configuracion-navbar.component.ts
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ConfiguracionService } from '../../services/configuracion.service';
@@ -13,17 +13,17 @@ import { ModoFormulario, CriterioValidacion, FormatoSalida } from '../../shared/
   styleUrls: ['./panel-configuracion-navbar.css']
 })
 export class PanelConfiguracionNavbarComponent {
+  @Input() mobileMode = false; // ← Nueva propiedad para modo móvil
+  
   constructor(public configSvc: ConfiguracionService) {}
 
   readonly ModoFormulario = ModoFormulario;
   readonly CriterioValidacion = CriterioValidacion;
   
-  // Getter para los criterios (REEMPLAZA la exposición de Object)
   get criterios() {
     return Object.values(CriterioValidacion);
   }
 
-  // Métodos abreviados para el modo compacto
   getModoTexto(): string {
     return this.configSvc.modo() === ModoFormulario.Extendido ? 'Extendido' : 'Reducido';
   }
