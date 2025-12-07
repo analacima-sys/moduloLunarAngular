@@ -16,7 +16,6 @@
       "i18n": {
         "sourceLocale": "es-ES",
         "locales": {
-      
           "en-US": "src/locale/messages.en.xlf"
         }
       },
@@ -42,10 +41,7 @@
             "polyfills": [
               "@angular/localize/init"
             ],
-            "localize": [
-              "es-ES",
-              "en-US"
-            ]
+            "localize": false
           },
           "configurations": {
             "production": {
@@ -61,12 +57,27 @@
                   "maximumError": "8kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "localize": [
+                "es-ES",
+                "en-US"
+              ]
             },
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "localize": [
+                "es-ES"
+              ]
+            },
+            "development-en": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "localize": [
+                "en-US"
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -79,6 +90,9 @@
             },
             "development": {
               "buildTarget": "moduloLunarAngular:build:development"
+            },
+            "development-en": {
+              "buildTarget": "moduloLunarAngular:build:development-en"
             }
           },
           "defaultConfiguration": "development"

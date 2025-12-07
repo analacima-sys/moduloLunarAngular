@@ -3,52 +3,40 @@
 <!-- PANTALLA DE FORMULARIO -->
 <div class="card">
   <div class="card-header bg-secondary text-white">
-    <h5 class="mb-0">Formulario de entrada</h5>
+    <h5 class="mb-0" i18n="@@mineral-form-titulo">Formulario de entrada</h5>
   </div>
   <div class="card-body">
     <form [formGroup]="formularioActivo()" (ngSubmit)="analizar()">
+
       <!-- ID y Nombre -->
       <div class="row">
         <div class="col-lg-6 mb-3">
           @if (configSvc.modo() === ModoFormulario.Extendido) {
-          <label class="form-label-extended">{{ labelId }}</label>
+          <label class="form-label-extended" i18n="@@mineral-form-label-id">ID (LLDDDDLL)</label>
           }
-          <input
-            formControlName="id"
-            class="form-control"
-            [placeholder]="configSvc.modo() === ModoFormulario.Reducido ? labelId : 'Ej: AB1234CD'"
-          />
+          <input formControlName="id" class="form-control"
+            i18n-placeholder="@@mineral-form-placeholder-id"
+            [placeholder]="configSvc.modo() === ModoFormulario.Reducido ? 'ID (LLDDDDLL)' : 'Ej: AB1234CD'">
 
           @if (formularioActivo().get('id')?.touched && formularioActivo().get('id')?.invalid) {
-          <div class="hint-text text-danger">
-            {{
-              configSvc.formato() === 'americano'
-                ? 'Invalid ID. Format: 2 letters, 4 numbers, 2 letters.'
-                : 'ID inválido. Formato: 2 letras, 4 números, 2 letras.'
-            }}
+          <div class="hint-text text-danger" i18n="@@mineral-form-error-id">
+            ID inválido. Formato: 2 letras, 4 números, 2 letras.
           </div>
           }
         </div>
 
         <div class="col-lg-6 mb-3">
           @if (configSvc.modo() === ModoFormulario.Extendido) {
-          <label class="form-label-extended">{{ labelNombre }}</label>
+          <label class="form-label-extended" i18n="@@mineral-form-label-nombre">Nombre</label>
           }
-          <input
-            formControlName="nombre"
-            class="form-control"
-            [class.is-invalid]="
-              formularioActivo().get('nombre')?.touched && formularioActivo().get('nombre')?.invalid
-            "
-            [placeholder]="configSvc.modo() === ModoFormulario.Reducido ? labelNombre : ''"
-          />
+          <input formControlName="nombre" class="form-control"
+            [class.is-invalid]="formularioActivo().get('nombre')?.touched && formularioActivo().get('nombre')?.invalid"
+            i18n-placeholder="@@mineral-form-placeholder-nombre"
+            [placeholder]="configSvc.modo() === ModoFormulario.Reducido ? 'Nombre' : ''">
 
-          @if (formularioActivo().get('nombre')?.touched &&
-          formularioActivo().get('nombre')?.invalid) {
-          <div class="hint-text text-danger">
-            {{
-              configSvc.formato() === 'americano' ? 'Name is required.' : 'El nombre es requerido.'
-            }}
+          @if (formularioActivo().get('nombre')?.touched && formularioActivo().get('nombre')?.invalid) {
+          <div class="hint-text text-danger" i18n="@@mineral-form-error-nombre">
+            El nombre es requerido.
           </div>
           }
         </div>
@@ -57,23 +45,17 @@
       <!-- Grupo / Dureza / Tamaño cristales -->
       <div class="row">
         <div class="col-lg-6 mb-3">
-          <label class="form-label-extended">{{ labelGrupo }}</label>
+          <label class="form-label-extended" i18n="@@mineral-form-label-grupo">Grupo / Origen</label>
           @for (g of tiposRoca; track g) {
           <div class="form-check">
-            <input
-              class="form-check-input"
-              type="radio"
-              [value]="g"
-              formControlName="grupo"
-              [id]="'g-' + g"
-            />
-            <label class="form-check-label" [for]="'g-' + g">{{ traducir(g) }}</label>
+            <input class="form-check-input" type="radio" [value]="g" formControlName="grupo" [id]="'g-'+g">
+            <label class="form-check-label" [for]="'g-'+g">{{ traducir(g) }}</label>
           </div>
           }
         </div>
 
         <div class="col-lg-3 mb-3">
-          <label class="form-label-extended">{{ labelDureza }}</label>
+          <label class="form-label-extended" i18n="@@mineral-form-label-dureza">Dureza (1-10)</label>
           <select formControlName="dureza" class="form-select">
             @for (n of [1,2,3,4,5,6,7,8,9,10]; track n) {
             <option [value]="n">{{ n }}</option>
@@ -82,7 +64,7 @@
         </div>
 
         <div class="col-lg-3 mb-3">
-          <label class="form-label-extended">{{ labelTamanoCristales }}</label>
+          <label class="form-label-extended" i18n="@@mineral-form-label-tamano-cristales">Tamaño de cristales (0-10)</label>
           <select formControlName="tamanoCristales" class="form-select">
             @for (n of [0,1,2,3,4,5,6,7,8,9,10]; track n) {
             <option [value]="n">{{ n }}</option>
@@ -94,25 +76,19 @@
       <!-- Tamaño de grano + Clasificación + Temperatura -->
       <div class="row">
         <div class="col-lg-6 mb-3">
-          <label class="form-label-extended">{{ labelTamanoGrano }}</label>
+          <label class="form-label-extended" i18n="@@mineral-form-label-tamano-grano">Tamaño de grano</label>
           <div class="d-flex gap-3 flex-wrap">
             @for (tg of tamaniosGrano; track tg) {
             <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                [value]="tg"
-                formControlName="tamanoGrano"
-                [id]="'tg-' + tg"
-              />
-              <label class="form-check-label" [for]="'tg-' + tg">{{ traducir(tg) }}</label>
+              <input class="form-check-input" type="radio" [value]="tg" formControlName="tamanoGrano" [id]="'tg-'+tg">
+              <label class="form-check-label" [for]="'tg-'+tg">{{ traducir(tg) }}</label>
             </div>
             }
           </div>
         </div>
 
         <div class="col-lg-3 mb-3">
-          <label class="form-label-extended">{{ labelClasificacion }}</label>
+          <label class="form-label-extended" i18n="@@mineral-form-label-clasificacion">Clasificación</label>
           <select formControlName="clasificacion" class="form-select">
             @for (c of clasificaciones; track c) {
             <option [value]="c">{{ traducir(c) }}</option>
@@ -121,17 +97,10 @@
         </div>
 
         <div class="col-lg-3 mb-3">
-          <label class="form-label-extended">{{ labelTemperatura }}</label>
-          <input
-            type="number"
-            formControlName="temperaturaFormacion"
-            class="form-control"
-            placeholder=""
-          />
-          <div class="hint-text">
-            {{
-              configSvc.formato() === 'americano' ? 'Range: -100 to 100 K' : 'Rango: -100 a 100 K'
-            }}
+          <label class="form-label-extended" i18n="@@mineral-form-label-temperatura">Temperatura de formación (K)</label>
+          <input type="number" formControlName="temperaturaFormacion" class="form-control" placeholder="">
+          <div class="hint-text" i18n="@@mineral-form-hint-temperatura">
+            Rango: -100 a 100 K
           </div>
         </div>
       </div>
@@ -139,48 +108,28 @@
       <!-- Estructura / Forma de los granos -->
       <div class="row">
         <div class="col-12 mb-3">
-          <label class="form-label-extended">{{ labelEstructura }}</label>
-          <textarea
-            formControlName="estructura"
-            rows="2"
-            class="form-control"
-            [placeholder]="
-              configSvc.formato() === 'americano'
-                ? 'Structure description'
-                : 'Descripción de la estructura'
-            "
-          ></textarea>
+          <label class="form-label-extended" i18n="@@mineral-form-label-estructura">Estructura</label>
+          <textarea formControlName="estructura" rows="2" class="form-control"
+            i18n-placeholder="@@mineral-form-placeholder-estructura"
+            placeholder="Descripción de la estructura"></textarea>
         </div>
 
         <div class="col-12 mb-3">
-          <label class="form-label-extended">{{ labelFormaGranos }}</label>
-          <textarea
-            formControlName="formaGranos"
-            rows="2"
-            class="form-control"
-            [placeholder]="
-              configSvc.formato() === 'americano'
-                ? 'Grain shape description'
-                : 'Descripción de la forma de los granos'
-            "
-          ></textarea>
+          <label class="form-label-extended" i18n="@@mineral-form-label-forma-granos">Forma de los granos</label>
+          <textarea formControlName="formaGranos" rows="2" class="form-control"
+            i18n-placeholder="@@mineral-form-placeholder-forma-granos"
+            placeholder="Descripción de la forma de los granos"></textarea>
         </div>
       </div>
 
       <!-- Textura -->
       <div class="row">
         <div class="col-12 mb-3">
-          <label class="form-label-extended">{{ labelTextura }}</label>
+          <label class="form-label-extended" i18n="@@mineral-form-label-textura">Textura</label>
           @for (t of texturas; track t) {
           <div class="form-check">
-            <input
-              class="form-check-input"
-              type="radio"
-              [value]="t"
-              formControlName="textura"
-              [id]="'t-' + t"
-            />
-            <label class="form-check-label" [for]="'t-' + t">{{ traducir(t) }}</label>
+            <input class="form-check-input" type="radio" [value]="t" formControlName="textura" [id]="'t-'+t">
+            <label class="form-check-label" [for]="'t-'+t">{{ traducir(t) }}</label>
           </div>
           }
         </div>
@@ -188,11 +137,13 @@
 
       <!-- Botones -->
       <div class="d-flex gap-2">
-        <button type="submit" class="btn btn-primary" [disabled]="formularioActivo().invalid">
-          {{ textoAnalizar }}
+        <button type="submit" class="btn btn-primary" [disabled]="formularioActivo().invalid"
+                i18n="@@mineral-form-btn-analizar">
+          Analizar Mineral
         </button>
-        <button type="button" class="btn btn-outline-secondary" (click)="limpiar()">
-          {{ textoLimpiar }}
+        <button type="button" class="btn btn-outline-secondary" (click)="limpiar()"
+                i18n="@@mineral-form-btn-limpiar">
+          Limpiar
         </button>
       </div>
     </form>
@@ -202,11 +153,9 @@
 <!-- RESULTADO -->
 @if (esValido() !== null) {
 <div class="card mt-3" [ngClass]="esValido() ? 'border-success' : 'border-danger'">
-  <div
-    class="card-header"
-    [ngClass]="esValido() ? 'bg-success text-white' : 'bg-danger text-white'"
-  >
-    {{ esValido() ? textoValido : textoNoValido }}
+  <div class="card-header" [ngClass]="esValido() ? 'bg-success text-white' : 'bg-danger text-white'">
+    <span i18n="@@mineral-resultado-valido" *ngIf="esValido()">✓ Mineral válido</span>
+    <span i18n="@@mineral-resultado-invalido" *ngIf="!esValido()">✗ Mineral no válido</span>
   </div>
   <div class="card-body text-center">
     <div class="emoji-result">
@@ -217,12 +166,10 @@
       }
     </div>
     <p class="mt-2">
-      {{
-        ultimoMineral()?.nombre ||
-          (configSvc.formato() === 'americano' ? 'The mineral' : 'El mineral')
-      }}
-      {{ esValido() ? textoCumple : textoNoCumple }}
-      {{ textoCriterio }} {{ traducir(configSvc.criterio()) }}.
+      {{ ultimoMineral()?.nombre || 'El mineral' }}
+      <span i18n="@@mineral-resultado-cumple" *ngIf="esValido()"> cumple </span>
+      <span i18n="@@mineral-resultado-no-cumple" *ngIf="!esValido()"> no cumple </span>
+      <span i18n="@@mineral-resultado-criterio">el criterio</span> {{ traducir(configSvc.criterio()) }}.
     </p>
   </div>
 </div>
@@ -231,33 +178,33 @@
 <!-- TABLA DE DATOS DEL MINERAL -->
 @if (ultimoMineral() && esValido()) {
 <div class="card mt-3">
-  <div class="card-header bg-info text-white">{{ textoDatosMineral }}</div>
+  <div class="card-header bg-info text-white" i18n="@@mineral-datos-titulo">Datos del mineral</div>
   <div class="card-body">
     <div class="row">
       <div class="col-lg-6">
         <table class="table">
           <tr>
-            <td class="fw-bold">{{ labelId }}:</td>
+            <td class="fw-bold" i18n="@@mineral-datos-id">ID:</td>
             <td>{{ ultimoMineral()!.id }}</td>
           </tr>
           <tr>
-            <td class="fw-bold">{{ labelNombre }}:</td>
+            <td class="fw-bold" i18n="@@mineral-datos-nombre">Nombre:</td>
             <td>{{ ultimoMineral()!.nombre }}</td>
           </tr>
           <tr>
-            <td class="fw-bold">{{ labelGrupo }}:</td>
+            <td class="fw-bold" i18n="@@mineral-datos-grupo">Grupo:</td>
             <td>{{ traducir(ultimoMineral()!.grupo) }}</td>
           </tr>
           <tr>
-            <td class="fw-bold">{{ labelDureza }}:</td>
+            <td class="fw-bold" i18n="@@mineral-datos-dureza">Dureza:</td>
             <td>{{ ultimoMineral()!.dureza }} (Mohs)</td>
           </tr>
           <tr>
-            <td class="fw-bold">{{ labelTamanoGrano }}:</td>
+            <td class="fw-bold" i18n="@@mineral-datos-tamano-grano">Tamaño de grano:</td>
             <td>{{ traducir(ultimoMineral()!.tamanoGrano) }}</td>
           </tr>
           <tr>
-            <td class="fw-bold">{{ labelTextura }}:</td>
+            <td class="fw-bold" i18n="@@mineral-datos-textura">Textura:</td>
             <td>{{ traducir(ultimoMineral()!.textura) }}</td>
           </tr>
         </table>
@@ -266,23 +213,23 @@
       <div class="col-lg-6">
         <table class="table">
           <tr>
-            <td class="fw-bold">{{ labelClasificacion }}:</td>
+            <td class="fw-bold" i18n="@@mineral-datos-clasificacion">Clasificación:</td>
             <td>{{ traducir(ultimoMineral()!.clasificacion) }}</td>
           </tr>
           <tr>
-            <td class="fw-bold">{{ labelTamanoCristales }}:</td>
+            <td class="fw-bold" i18n="@@mineral-datos-tamano-cristales">Tamaño de cristales:</td>
             <td>{{ ultimoMineral()!.tamanoCristales }}</td>
           </tr>
           <tr>
-            <td class="fw-bold">{{ labelTemperatura }}:</td>
+            <td class="fw-bold" i18n="@@mineral-datos-temperatura">Temperatura:</td>
             <td>{{ temperaturaFormateada(ultimoMineral()!.temperaturaFormacion) }}</td>
           </tr>
           <tr>
-            <td class="fw-bold">{{ labelEstructura }}:</td>
+            <td class="fw-bold" i18n="@@mineral-datos-estructura">Estructura:</td>
             <td>{{ ultimoMineral()!.estructura || '—' }}</td>
           </tr>
           <tr>
-            <td class="fw-bold">{{ labelFormaGranos }}:</td>
+            <td class="fw-bold" i18n="@@mineral-datos-forma-granos">Forma de los granos:</td>
             <td>{{ ultimoMineral()!.formaGranos || '—' }}</td>
           </tr>
         </table>

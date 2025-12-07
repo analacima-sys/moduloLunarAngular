@@ -1,26 +1,26 @@
 <!-- src/app/components/panel-configuracion/panel-configuracion.component.html -->
 <div class="card">
   <div class="card-header bg-primary text-white">
-    <h5 class="mb-0">Configuración</h5>
+    <h5 class="mb-0" i18n="@@panel-config-titulo">Configuración</h5>
   </div>
   <div class="card-body">
     <div class="row">
       <!-- Columna 1: Modo de formulario -->
       <div class="col-lg-4 mb-3 mb-lg-0">
         <fieldset>
-          <legend class="form-label">Modo de formulario:</legend>
-          <div class="btn-group w-100" aria-label="Selección de modo de formulario">
+          <legend class="form-label" i18n="@@panel-config-modo-titulo">Modo de formulario:</legend>
+          <div class="btn-group w-100" i18n-aria-label="@@panel-config-modo-aria" aria-label="Selección de modo de formulario">
             <input type="radio" class="btn-check" name="modoFormulario" id="btnExtendido" 
                    value="extendido" checked autocomplete="off"
                    [checked]="configSvc.modo() === ModoFormulario.Extendido"
                    (click)="cambiarModo(ModoFormulario.Extendido)" />
-            <label class="btn btn-outline-primary" for="btnExtendido">Extendido</label>
+            <label class="btn btn-outline-primary" for="btnExtendido" i18n="@@panel-config-modo-extendido">Extendido</label>
 
             <input type="radio" class="btn-check" name="modoFormulario" id="btnReducido" 
                    value="reducido" autocomplete="off"
                    [checked]="configSvc.modo() === ModoFormulario.Reducido"
                    (click)="cambiarModo(ModoFormulario.Reducido)" />
-            <label class="btn btn-outline-primary" for="btnReducido">Reducido</label>
+            <label class="btn btn-outline-primary" for="btnReducido" i18n="@@panel-config-modo-reducido">Reducido</label>
           </div>
         </fieldset>
       </div>
@@ -28,11 +28,10 @@
       <!-- Columna 2: Criterio de validación -->
       <div class="col-lg-4 mb-3 mb-lg-0">
         <fieldset>
-          <legend class="form-label">Criterio de validación:</legend>
+          <legend class="form-label" i18n="@@panel-config-criterio-titulo">Criterio de validación:</legend>
           <select class="form-select" 
                   [value]="configSvc.criterio()"
                   (change)="cambiarCriterio($event)">
-            <!-- USA EL GETTER criteriosArray en lugar de Object.values() -->
             @for (c of criteriosArray; track c) {
               <option [value]="c">{{ c }}</option>
             }
@@ -43,19 +42,19 @@
       <!-- Columna 3: Formato de salida -->
       <div class="col-lg-4">
         <fieldset>
-          <legend class="form-label">Formato de salida:</legend>
-          <div class="btn-group w-100" aria-label="Selección de formato de salida">
+          <legend class="form-label" i18n="@@panel-config-formato-titulo">Formato de salida:</legend>
+          <div class="btn-group w-100" i18n-aria-label="@@panel-config-formato-aria" aria-label="Selección de formato de salida">
             <input type="radio" class="btn-check" name="formatoSalida" id="btnEuropeo" 
                    value="europeo" checked autocomplete="off"
                    [checked]="configSvc.formato() === 'europeo'"
                    (click)="cambiarFormato('europeo')" />
-            <label class="btn btn-outline-primary" for="btnEuropeo">Europeo</label>
+            <label class="btn btn-outline-primary" for="btnEuropeo" i18n="@@panel-config-formato-europeo">Europeo</label>
 
             <input type="radio" class="btn-check" name="formatoSalida" id="btnAmericano" 
                    value="americano" autocomplete="off"
                    [checked]="configSvc.formato() === 'americano'"
                    (click)="cambiarFormato('americano')" />
-            <label class="btn btn-outline-primary" for="btnAmericano">Americano</label>
+            <label class="btn btn-outline-primary" for="btnAmericano" i18n="@@panel-config-formato-americano">Americano</label>
           </div>
         </fieldset>
       </div>

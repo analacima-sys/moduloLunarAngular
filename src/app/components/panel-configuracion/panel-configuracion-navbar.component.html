@@ -6,7 +6,7 @@
       
       <!-- Modo de formulario -->
       <div class="config-item">
-        <span class="config-label">Modo</span>
+        <span class="config-label" i18n="@@panel-config-label-modo">Modo</span>
         <button class="btn btn-sm btn-outline-light" 
                 (click)="cambiarModo()">
           {{ getModoTexto() }}
@@ -15,7 +15,7 @@
 
       <!-- Criterio de validación -->
       <div class="config-item">
-        <span class="config-label">Criterio</span>
+        <span class="config-label" i18n="@@panel-config-label-criterio">Criterio</span>
         <select class="form-select form-select-sm" 
                 [value]="configSvc.criterio()"
                 (change)="cambiarCriterio($event)">
@@ -27,7 +27,7 @@
 
       <!-- Formato de salida -->
       <div class="config-item">
-        <span class="config-label">Formato</span>
+        <span class="config-label" i18n="@@panel-config-label-formato">Formato</span>
         <button class="btn btn-sm btn-outline-light" 
                 (click)="cambiarFormato()">
           {{ getFormatoTexto() }}
