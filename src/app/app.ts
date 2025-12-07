@@ -37,7 +37,9 @@ import { PanelConfiguracionNavbarComponent } from "./components/panel-configurac
 
     @media (min-width: 768px) and (max-width: 991.98px) {
       .tablet-panel-wrapper {
-        display: block;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
     }
 
