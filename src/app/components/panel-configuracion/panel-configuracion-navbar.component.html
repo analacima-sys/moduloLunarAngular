@@ -9,7 +9,7 @@
         <span class="config-label" i18n="@@panel-config-label-modo">Modo</span>
         <button class="btn btn-sm btn-outline-light" 
                 (click)="cambiarModo()">
-          {{ getModoTexto() }}
+          {{ getModoTexto() | traducirEnum:locale }}
         </button>
       </div>
 
@@ -20,7 +20,7 @@
                 [value]="configSvc.criterio()"
                 (change)="cambiarCriterio($event)">
           @for (c of criterios; track c) {
-            <option [value]="c">{{ (c.split(' ')[1]) | traducirEnum:locale }}</option>
+            <option [value]="c">{{ c | traducirEnum:locale }}</option>
           }
         </select>
       </div>
@@ -30,7 +30,7 @@
         <span class="config-label" i18n="@@panel-config-label-formato">Formato</span>
         <button class="btn btn-sm btn-outline-light" 
                 (click)="cambiarFormato()">
-          {{ getFormatoTexto() }}
+          {{ getFormatoTexto() | traducirEnum:locale }}
         </button>
       </div>
       

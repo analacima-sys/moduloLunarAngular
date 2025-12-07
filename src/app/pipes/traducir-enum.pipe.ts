@@ -7,16 +7,24 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class TraducirEnumPipe implements PipeTransform {
   private traducciones: { [key: string]: { 'es-ES': string, 'en-US': string } } = {
-    // Criterios de validación
-    'Criterio ígneas': { 'es-ES': 'Criterio ígneas', 'en-US': 'Igneous criterion' },
-    'Criterio metamórficas': { 'es-ES': 'Criterio metamórficas', 'en-US': 'Metamorphic criterion' },
-    'Criterio sedimentarias': { 'es-ES': 'Criterio sedimentarias', 'en-US': 'Sedimentary criterion' },
+    // Modos de formulario
+    'Extendido': { 'es-ES': 'Extendido', 'en-US': 'Extended' },
+    'Reducido': { 'es-ES': 'Reducido', 'en-US': 'Reduced' },
     
-    // Tipos de roca
+    // Formatos de salida
+    'Europeo': { 'es-ES': 'Europeo', 'en-US': 'European' },
+    'Americano': { 'es-ES': 'Americano', 'en-US': 'American' },
+    
+    // Tipos de roca / Criterios - Mayúscula (para desplegables)
     'Ígneas': { 'es-ES': 'Ígneas', 'en-US': 'Igneous' },
     'Metamórficas': { 'es-ES': 'Metamórficas', 'en-US': 'Metamorphic' },
     'Sedimentarias': { 'es-ES': 'Sedimentarias', 'en-US': 'Sedimentary' },
     
+    // Criterios - Minúscula (para resultados)
+    'ígneas': { 'es-ES': 'ígneas', 'en-US': 'igneous' },
+    'metamórficas': { 'es-ES': 'metamórficas', 'en-US': 'metamorphic' },
+    'sedimentarias': { 'es-ES': 'sedimentarias', 'en-US': 'sedimentary' },
+  
     // Tamaño de grano
     'Muy grueso': { 'es-ES': 'Muy grueso', 'en-US': 'Very coarse' },
     'Grueso': { 'es-ES': 'Grueso', 'en-US': 'Coarse' },

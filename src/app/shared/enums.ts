@@ -5,9 +5,9 @@ export enum ModoFormulario {
 }
 
 export enum CriterioValidacion {
-  Igneas = 'Criterio ígneas',
-  Metamorficas = 'Criterio metamórficas',
-  Sedimentarias = 'Criterio sedimentarias',
+  Igneas = 'Ígneas',
+  Metamorficas = 'Metamórficas',
+  Sedimentarias = 'Sedimentarias',
 }
 
 export type FormatoSalida = 'europeo' | 'americano';

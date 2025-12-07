@@ -175,7 +175,7 @@
       } @else {
         <span i18n="@@mineral-resultado-no-cumple"> no cumple </span>
       }
-      <span i18n="@@mineral-resultado-criterio">el criterio</span> {{ configSvc.criterio() | traducirEnum:locale }}.
+      <span i18n="@@mineral-resultado-criterio">el criterio</span> {{ configSvc.criterio().toLowerCase() | traducirEnum:locale }}.
     </p>
   </div>
 </div>
