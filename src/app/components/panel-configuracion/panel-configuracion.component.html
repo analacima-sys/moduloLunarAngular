@@ -33,7 +33,7 @@
                   [value]="configSvc.criterio()"
                   (change)="cambiarCriterio($event)">
             @for (c of criteriosArray; track c) {
-              <option [value]="c">{{ c }}</option>
+              <option [value]="c">{{ c | traducirEnum:locale }}</option>
             }
           </select>
         </fieldset>

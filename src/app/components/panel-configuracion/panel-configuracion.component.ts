@@ -1,18 +1,21 @@
 // src/app/components/panel-configuracion/panel-configuracion.component.ts
-import { Component } from '@angular/core';
+import { Component, LOCALE_ID, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ConfiguracionService } from '../../services/configuracion.service';
 import { ModoFormulario, CriterioValidacion, FormatoSalida } from '../../shared/enums';
+import { TraducirEnumPipe } from '../../pipes/traducir-enum.pipe';
 
 @Component({
   selector: 'app-panel-configuracion',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TraducirEnumPipe],
   templateUrl: './panel-configuracion.component.html',
   styleUrls: ['./panel-configuracion.component.css']
 })
 export class PanelConfiguracionComponent {
+  locale = inject(LOCALE_ID);
+  
   constructor(public configSvc: ConfiguracionService) {}
 
   readonly ModoFormulario = ModoFormulario;

@@ -20,7 +20,7 @@
                 [value]="configSvc.criterio()"
                 (change)="cambiarCriterio($event)">
           @for (c of criterios; track c) {
-            <option [value]="c">{{ c.split(' ')[1] }}</option>
+            <option [value]="c">{{ (c.split(' ')[1]) | traducirEnum:locale }}</option>
           }
         </select>
       </div>

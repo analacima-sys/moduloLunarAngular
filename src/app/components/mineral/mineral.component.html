@@ -20,7 +20,7 @@
 
           @if (formularioActivo().get('id')?.touched && formularioActivo().get('id')?.invalid) {
           <div class="hint-text text-danger" i18n="@@mineral-form-error-id">
-            ID inválido. Formato: 2 letras, 4 números, 2 letras.
+            ID inválido. Formato: 2 letras, 4 dígitos, 2 letras.
           </div>
           }
         </div>
@@ -49,7 +49,7 @@
           @for (g of tiposRoca; track g) {
           <div class="form-check">
             <input class="form-check-input" type="radio" [value]="g" formControlName="grupo" [id]="'g-'+g">
-            <label class="form-check-label" [for]="'g-'+g">{{ traducir(g) }}</label>
+            <label class="form-check-label" [for]="'g-'+g">{{ g | traducirEnum:locale }}</label>
           </div>
           }
         </div>
@@ -81,7 +81,7 @@
             @for (tg of tamaniosGrano; track tg) {
             <div class="form-check">
               <input class="form-check-input" type="radio" [value]="tg" formControlName="tamanoGrano" [id]="'tg-'+tg">
-              <label class="form-check-label" [for]="'tg-'+tg">{{ traducir(tg) }}</label>
+              <label class="form-check-label" [for]="'tg-'+tg">{{ tg | traducirEnum:locale }}</label>
             </div>
             }
           </div>
@@ -91,7 +91,7 @@
           <label class="form-label-extended" i18n="@@mineral-form-label-clasificacion">Clasificación</label>
           <select formControlName="clasificacion" class="form-select">
             @for (c of clasificaciones; track c) {
-            <option [value]="c">{{ traducir(c) }}</option>
+            <option [value]="c">{{ c | traducirEnum:locale }}</option>
             }
           </select>
         </div>
@@ -129,7 +129,7 @@
           @for (t of texturas; track t) {
           <div class="form-check">
             <input class="form-check-input" type="radio" [value]="t" formControlName="textura" [id]="'t-'+t">
-            <label class="form-check-label" [for]="'t-'+t">{{ traducir(t) }}</label>
+            <label class="form-check-label" [for]="'t-'+t">{{ t | traducirEnum:locale }}</label>
           </div>
           }
         </div>
@@ -154,8 +154,11 @@
 @if (esValido() !== null) {
 <div class="card mt-3" [ngClass]="esValido() ? 'border-success' : 'border-danger'">
   <div class="card-header" [ngClass]="esValido() ? 'bg-success text-white' : 'bg-danger text-white'">
-    <span i18n="@@mineral-resultado-valido" *ngIf="esValido()">✓ Mineral válido</span>
-    <span i18n="@@mineral-resultado-invalido" *ngIf="!esValido()">✗ Mineral no válido</span>
+    @if (esValido()) {
+      <span i18n="@@mineral-resultado-valido">✓ Mineral válido</span>
+    } @else {
+      <span i18n="@@mineral-resultado-invalido">✗ Mineral no válido</span>
+    }
   </div>
   <div class="card-body text-center">
     <div class="emoji-result">
@@ -167,9 +170,12 @@
     </div>
     <p class="mt-2">
       {{ ultimoMineral()?.nombre || 'El mineral' }}
-      <span i18n="@@mineral-resultado-cumple" *ngIf="esValido()"> cumple </span>
-      <span i18n="@@mineral-resultado-no-cumple" *ngIf="!esValido()"> no cumple </span>
-      <span i18n="@@mineral-resultado-criterio">el criterio</span> {{ traducir(configSvc.criterio()) }}.
+      @if (esValido()) {
+        <span i18n="@@mineral-resultado-cumple"> cumple </span>
+      } @else {
+        <span i18n="@@mineral-resultado-no-cumple"> no cumple </span>
+      }
+      <span i18n="@@mineral-resultado-criterio">el criterio</span> {{ configSvc.criterio() | traducirEnum:locale }}.
     </p>
   </div>
 </div>
@@ -193,7 +199,7 @@
           </tr>
           <tr>
             <td class="fw-bold" i18n="@@mineral-datos-grupo">Grupo:</td>
-            <td>{{ traducir(ultimoMineral()!.grupo) }}</td>
+            <td>{{ ultimoMineral()!.grupo | traducirEnum:locale }}</td>
           </tr>
           <tr>
             <td class="fw-bold" i18n="@@mineral-datos-dureza">Dureza:</td>
@@ -201,11 +207,11 @@
           </tr>
           <tr>
             <td class="fw-bold" i18n="@@mineral-datos-tamano-grano">Tamaño de grano:</td>
-            <td>{{ traducir(ultimoMineral()!.tamanoGrano) }}</td>
+            <td>{{ ultimoMineral()!.tamanoGrano | traducirEnum:locale }}</td>
           </tr>
           <tr>
             <td class="fw-bold" i18n="@@mineral-datos-textura">Textura:</td>
-            <td>{{ traducir(ultimoMineral()!.textura) }}</td>
+            <td>{{ ultimoMineral()!.textura | traducirEnum:locale }}</td>
           </tr>
         </table>
       </div>
@@ -214,7 +220,7 @@
         <table class="table">
           <tr>
             <td class="fw-bold" i18n="@@mineral-datos-clasificacion">Clasificación:</td>
-            <td>{{ traducir(ultimoMineral()!.clasificacion) }}</td>
+            <td>{{ ultimoMineral()!.clasificacion | traducirEnum:locale }}</td>
           </tr>
           <tr>
             <td class="fw-bold" i18n="@@mineral-datos-tamano-cristales">Tamaño de cristales:</td>
