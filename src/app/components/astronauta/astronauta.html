@@ -5,7 +5,8 @@
     <div class="astronaut-details">
       <div class="astronaut-name">{{ astronautaSvc.astronauta.dameNombreCompleto() }}</div>
       <div class="astronaut-rank">
-        ID: {{ astronautaSvc.astronauta.dameIdentificador() }} | Edad: {{ astronautaSvc.astronauta.dameEdad() }}
+        <span i18n="@@astronauta-label-id">ID:</span> {{ astronautaSvc.astronauta.dameIdentificador() }} | 
+        <span i18n="@@astronauta-label-edad">Edad:</span> {{ astronautaSvc.astronauta.dameEdad() }}
       </div>
     </div>
   </div>
