@@ -1,0 +1,149 @@
+<!-- src/app/components/mineral/mineral-form/mineral-form.component.html -->
+<div class="card">
+  <div class="card-header bg-secondary text-white">
+    <h5 class="mb-0" i18n="@@mineral-form-titulo">Formulario de entrada</h5>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="formularioActivo" (ngSubmit)="analizar()">
+
+      <!-- ID y Nombre -->
+      <div class="row">
+        <div class="col-lg-6 mb-3">
+          @if (configSvc.modo() === ModoFormulario.Extendido) {
+          <label class="form-label-extended" i18n="@@mineral-form-label-id">ID (LLDDDDLL)</label>
+          }
+          <input formControlName="id" class="form-control"
+            i18n-placeholder="@@mineral-form-placeholder-id"
+            [placeholder]="configSvc.modo() === ModoFormulario.Reducido ? 'ID (LLDDDDLL)' : 'Ej: AB1234CD'">
+
+          @if (formularioActivo.get('id')?.touched && formularioActivo.get('id')?.invalid) {
+          <div class="hint-text text-danger" i18n="@@mineral-form-error-id">
+            ID inválido. Formato: 2 letras, 4 dígitos, 2 letras.
+          </div>
+          }
+        </div>
+
+        <div class="col-lg-6 mb-3">
+          @if (configSvc.modo() === ModoFormulario.Extendido) {
+          <label class="form-label-extended" i18n="@@mineral-form-label-nombre">Nombre</label>
+          }
+          <input formControlName="nombre" class="form-control"
+            [class.is-invalid]="formularioActivo.get('nombre')?.touched && formularioActivo.get('nombre')?.invalid"
+            i18n-placeholder="@@mineral-form-placeholder-nombre"
+            [placeholder]="configSvc.modo() === ModoFormulario.Reducido ? 'Nombre' : ''">
+
+          @if (formularioActivo.get('nombre')?.touched && formularioActivo.get('nombre')?.invalid) {
+          <div class="hint-text text-danger" i18n="@@mineral-form-error-nombre">
+            El nombre es requerido.
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- Grupo / Dureza / Tamaño cristales -->
+      <div class="row">
+        <div class="col-lg-6 mb-3">
+          <label class="form-label-extended" i18n="@@mineral-form-label-grupo">Grupo / Origen</label>
+          @for (g of tiposRoca; track g) {
+          <div class="form-check">
+            <input class="form-check-input" type="radio" [value]="g" formControlName="grupo" [id]="'g-'+g">
+            <label class="form-check-label" [for]="'g-'+g">{{ g | traducirEnum:locale }}</label>
+          </div>
+          }
+        </div>
+
+        <div class="col-lg-3 mb-3">
+          <label class="form-label-extended" i18n="@@mineral-form-label-dureza">Dureza (1-10)</label>
+          <select formControlName="dureza" class="form-select">
+            @for (n of [1,2,3,4,5,6,7,8,9,10]; track n) {
+            <option [value]="n">{{ n }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="col-lg-3 mb-3">
+          <label class="form-label-extended" i18n="@@mineral-form-label-tamano-cristales">Tamaño de cristales (0-10)</label>
+          <select formControlName="tamanoCristales" class="form-select">
+            @for (n of [0,1,2,3,4,5,6,7,8,9,10]; track n) {
+            <option [value]="n">{{ n }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <!-- Tamaño de grano + Clasificación + Temperatura -->
+      <div class="row">
+        <div class="col-lg-6 mb-3">
+          <label class="form-label-extended" i18n="@@mineral-form-label-tamano-grano">Tamaño de grano</label>
+          <div class="d-flex gap-3 flex-wrap">
+            @for (tg of tamaniosGrano; track tg) {
+            <div class="form-check">
+              <input class="form-check-input" type="radio" [value]="tg" formControlName="tamanoGrano" [id]="'tg-'+tg">
+              <label class="form-check-label" [for]="'tg-'+tg">{{ tg | traducirEnum:locale }}</label>
+            </div>
+            }
+          </div>
+        </div>
+
+        <div class="col-lg-3 mb-3">
+          <label class="form-label-extended" i18n="@@mineral-form-label-clasificacion">Clasificación</label>
+          <select formControlName="clasificacion" class="form-select">
+            @for (c of clasificaciones; track c) {
+            <option [value]="c">{{ c | traducirEnum:locale }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="col-lg-3 mb-3">
+          <label class="form-label-extended" i18n="@@mineral-form-label-temperatura">Temperatura de formación (K)</label>
+          <input type="number" formControlName="temperaturaFormacion" class="form-control" placeholder="">
+          <div class="hint-text" i18n="@@mineral-form-hint-temperatura">
+            Rango: -100 a 100 K
+          </div>
+        </div>
+      </div>
+
+      <!-- Estructura / Forma de los granos -->
+      <div class="row">
+        <div class="col-12 mb-3">
+          <label class="form-label-extended" i18n="@@mineral-form-label-estructura">Estructura</label>
+          <textarea formControlName="estructura" rows="2" class="form-control"
+            i18n-placeholder="@@mineral-form-placeholder-estructura"
+            placeholder="Descripción de la estructura"></textarea>
+        </div>
+
+        <div class="col-12 mb-3">
+          <label class="form-label-extended" i18n="@@mineral-form-label-forma-granos">Forma de los granos</label>
+          <textarea formControlName="formaGranos" rows="2" class="form-control"
+            i18n-placeholder="@@mineral-form-placeholder-forma-granos"
+            placeholder="Descripción de la forma de los granos"></textarea>
+        </div>
+      </div>
+
+      <!-- Textura -->
+      <div class="row">
+        <div class="col-12 mb-3">
+          <label class="form-label-extended" i18n="@@mineral-form-label-textura">Textura</label>
+          @for (t of texturas; track t) {
+          <div class="form-check">
+            <input class="form-check-input" type="radio" [value]="t" formControlName="textura" [id]="'t-'+t">
+            <label class="form-check-label" [for]="'t-'+t">{{ t | traducirEnum:locale }}</label>
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- Botones -->
+      <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-primary" [disabled]="formularioActivo.invalid"
+                i18n="@@mineral-form-btn-analizar">
+          Analizar Mineral
+        </button>
+        <button type="button" class="btn btn-outline-secondary" (click)="limpiar()"
+                i18n="@@mineral-form-btn-limpiar">
+          Limpiar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

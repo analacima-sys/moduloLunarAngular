@@ -1,0 +1,61 @@
+<!-- src/app/components/mineral/mineral-datos/mineral-datos.component.html -->
+<div class="card mt-3">
+  <div class="card-header bg-info text-white" i18n="@@mineral-datos-titulo">Datos del mineral</div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-lg-6">
+        <table class="table">
+          <tr>
+            <td class="fw-bold" i18n="@@mineral-datos-id">ID:</td>
+            <td>{{ mineral().id }}</td>
+          </tr>
+          <tr>
+            <td class="fw-bold" i18n="@@mineral-datos-nombre">Nombre:</td>
+            <td>{{ mineral().nombre }}</td>
+          </tr>
+          <tr>
+            <td class="fw-bold" i18n="@@mineral-datos-grupo">Grupo:</td>
+            <td>{{ mineral().grupo | traducirEnum:locale }}</td>
+          </tr>
+          <tr>
+            <td class="fw-bold" i18n="@@mineral-datos-dureza">Dureza:</td>
+            <td>{{ mineral().dureza }} (Mohs)</td>
+          </tr>
+          <tr>
+            <td class="fw-bold" i18n="@@mineral-datos-tamano-grano">Tamaño de grano:</td>
+            <td>{{ mineral().tamanoGrano | traducirEnum:locale }}</td>
+          </tr>
+          <tr>
+            <td class="fw-bold" i18n="@@mineral-datos-textura">Textura:</td>
+            <td>{{ mineral().textura | traducirEnum:locale }}</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="col-lg-6">
+        <table class="table">
+          <tr>
+            <td class="fw-bold" i18n="@@mineral-datos-clasificacion">Clasificación:</td>
+            <td>{{ mineral().clasificacion | traducirEnum:locale }}</td>
+          </tr>
+          <tr>
+            <td class="fw-bold" i18n="@@mineral-datos-tamano-cristales">Tamaño de cristales:</td>
+            <td>{{ mineral().tamanoCristales }}</td>
+          </tr>
+          <tr>
+            <td class="fw-bold" i18n="@@mineral-datos-temperatura">Temperatura:</td>
+            <td>{{ temperaturaFormateada(mineral().temperaturaFormacion) }}</td>
+          </tr>
+          <tr>
+            <td class="fw-bold" i18n="@@mineral-datos-estructura">Estructura:</td>
+            <td>{{ mineral().estructura || '—' }}</td>
+          </tr>
+          <tr>
+            <td class="fw-bold" i18n="@@mineral-datos-forma-granos">Forma de los granos:</td>
+            <td>{{ mineral().formaGranos || '—' }}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
