@@ -1,0 +1,68 @@
+/* src/app/components/mineral/mineral.component.css */
+
+/* Layout general del componente */
+:host {
+  display: block;
+}
+
+/* Espaciado entre secciones */
+mat-card {
+  margin-bottom: 1.5rem;
+}
+
+/* Resultado - Card de validación */
+.card.border-success {
+  border-width: 2px !important;
+}
+
+.card.border-danger {
+  border-width: 2px !important;
+}
+
+.emoji-result {
+  font-size: 80px;
+  animation: bounce 0.5s ease;
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* Tabla de datos del mineral */
+.table {
+  margin-bottom: 0;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.table td {
+  padding: 0.5rem;
+  vertical-align: middle;
+}
+
+.table .fw-bold {
+  width: 40%;
+  color: var(--color-dark);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .emoji-result {
+    font-size: 60px;
+  }
+}
+
+@media (min-width: 992px) {
+  .card-body .row > [class*="col-lg-"] {
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-body .row > [class*="col-lg-"]:last-child {
+    border-right: none;
+  }
+}
