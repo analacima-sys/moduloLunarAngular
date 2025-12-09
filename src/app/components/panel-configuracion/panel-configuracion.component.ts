@@ -21,7 +21,6 @@ export class PanelConfiguracionComponent {
   readonly ModoFormulario = ModoFormulario;
   readonly CriterioValidacion = CriterioValidacion;
   
-  // Getter para los criterios
   get criteriosArray() {
     return Object.values(CriterioValidacion);
   }

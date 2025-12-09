@@ -43,11 +43,9 @@ import { TraducirEnumPipe } from '../../../pipes/traducir-enum.pipe';
   `
 })
 export class MineralResultadoComponent {
-  // Signal inputs
   esValido = input<boolean | null>(null);
   mineral = input<Mineral | null>(null);
   criterio = input.required<CriterioValidacion>();
   
-  // Inyecciones
   locale = inject(LOCALE_ID);
 }

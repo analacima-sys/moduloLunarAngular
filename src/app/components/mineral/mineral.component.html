@@ -1,6 +1,6 @@
 <!-- src/app/components/mineral/mineral.component.html -->
 
-<!-- FORMULARIO CON ANGULAR MATERIAL -->
+<!-- FORMULARIO  -->
 <mat-card>
   <mat-card-header>
     <mat-card-title i18n="@@mineral-form-titulo">Formulario de entrada</mat-card-title>
@@ -174,7 +174,7 @@
   </mat-card-content>
 </mat-card>
 
-<!-- RESULTADO (mantiene Bootstrap cards) -->
+<!-- RESULTADO -->
 @if (esValido() !== null) {
 <div class="card mt-3" [ngClass]="esValido() ? 'border-success' : 'border-danger'">
   <div class="card-header" [ngClass]="esValido() ? 'bg-success text-white' : 'bg-danger text-white'">

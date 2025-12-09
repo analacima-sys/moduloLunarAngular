@@ -21,10 +21,8 @@ import { TraducirEnumPipe } from '../../../pipes/traducir-enum.pipe';
   templateUrl: './mineral-form.component.html'
 })
 export class MineralFormComponent {
-  // Signal inputs/outputs
   mineralAnalizado = output<Mineral>();
   
-  // Inyecciones
   locale = inject(LOCALE_ID);
   readonly ModoFormulario = ModoFormulario;
   

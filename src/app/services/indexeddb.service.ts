@@ -4,20 +4,15 @@ import { Mineral } from '../../types';
 import { CriterioValidacion, FormatoSalida } from '../shared/enums';
 
 export interface MineralGuardado {
-  // ID único para IndexedDB (auto-incrementado)
   idRegistro?: number;
   
-  // Datos del mineral (sin traducir)
   mineral: Mineral;
   
-  // Metadatos del análisis
   criterioUsado: CriterioValidacion;
   esValido: boolean;
-  
-  // Metadatos de la sesión
-  fechaAnalisis: string;  // ISO date
-  localeAnalisis: string;  // 'es-ES' o 'en-US' (para referencia)
-  formatoTemperatura: FormatoSalida;  // 'europeo' o 'americano'
+  fechaAnalisis: string; 
+  localeAnalisis: string;  // 'es-ES' o 'en-US'
+  formatoTemperatura: FormatoSalida;  
 }
 
 @Injectable({ providedIn: 'root' })
@@ -31,9 +26,7 @@ export class IndexedDBService {
     this.initDB();
   }
 
-  /**
-   * Inicializa la base de datos IndexedDB
-   */
+   //Inicializa la base de datos IndexedDB
   private async initDB(): Promise<void> {
     return new Promise((resolve, reject) => {
       const request = indexedDB.open(this.dbName, this.dbVersion);

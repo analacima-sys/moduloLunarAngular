@@ -10,20 +10,17 @@ export interface Configuracion {
 
 @Injectable({ providedIn: 'root' })
 export class ConfiguracionService {
-  // Estado reactivo con signals
   private _configuracion = signal<Configuracion>({
     modo: ModoFormulario.Extendido,
     criterio: CriterioValidacion.Igneas,
     formato: 'europeo'
   });
 
-  // Getters reactivos
   modo = computed(() => this._configuracion().modo);
   criterio = computed(() => this._configuracion().criterio);
   formato = computed(() => this._configuracion().formato);
   configuracion = computed(() => this._configuracion());
 
-  // Setters
   cambiarModo(modo: ModoFormulario): void {
     this._configuracion.update(config => ({ ...config, modo }));
   }

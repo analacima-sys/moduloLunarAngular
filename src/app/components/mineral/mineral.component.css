@@ -1,16 +1,13 @@
 /* src/app/components/mineral/mineral.component.css */
 
-/* Layout general del componente */
 :host {
   display: block;
 }
 
-/* Espaciado entre secciones */
 mat-card {
   margin-bottom: 1.5rem;
 }
 
-/* Resultado - Card de validación */
 .card.border-success {
   border-width: 2px !important;
 }

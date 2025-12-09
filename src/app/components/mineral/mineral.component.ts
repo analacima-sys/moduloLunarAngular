@@ -3,7 +3,6 @@ import { Component, signal, computed, LOCALE_ID, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-// Angular Material imports
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -24,12 +23,12 @@ import { TraducirEnumPipe } from '../../pipes/traducir-enum.pipe';
   standalone: true,
   selector: 'app-mineral',
   templateUrl: './mineral.component.html',
+  styleUrls: ['./mineral.component.css'],
   imports: [
     CommonModule, 
     FormsModule, 
     ReactiveFormsModule,
     TraducirEnumPipe,
-    // Angular Material
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,

@@ -145,9 +145,7 @@
 /* Solo se muestra en desktop (≥992px) */
 @media (max-width: 991.98px) {
   .navbar .panel-configuracion-compact {
-    display: none !important;
+    display: none;
   }
 }
 
-/* Los paneles fuera del navbar (en container) siempre se muestran según sus propias reglas */
-/* No se ven afectados por esta regla porque no están dentro de .navbar */

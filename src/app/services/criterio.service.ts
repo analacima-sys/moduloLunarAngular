@@ -6,17 +6,13 @@ import { CriterioValidacion } from '../shared/enums';
 
 @Injectable({ providedIn: 'root' })
 export class CriterioService {
-  /**
-   * Valida un mineral según el criterio seleccionado
-   */
+
   validar(mineral: Mineral, criterio: CriterioValidacion): boolean {
     switch (criterio) {
       case CriterioValidacion.Igneas:
-        // Criterio Ígneas: Grupo ígneas + Grano muy grueso
         return mineral.grupo === TipoRoca.Ignea && mineral.tamanoGrano === TamanoGrano.MuyGrueso;
 
       case CriterioValidacion.Metamorficas:
-        // Criterio Metamórficas: Grupo metamórfica + Grano medio o fino + Textura vítrea
         return (
           mineral.grupo === TipoRoca.Metamorfica &&
           (mineral.tamanoGrano === TamanoGrano.Medio || mineral.tamanoGrano === TamanoGrano.Fino) &&
@@ -24,7 +20,6 @@ export class CriterioService {
         );
 
       case CriterioValidacion.Sedimentarias:
-        // Criterio Sedimentarias: Grupo sedimentaria + Textura fanerítica
         return mineral.grupo === TipoRoca.Sedimentaria && mineral.textura === Textura.Faneritica;
 
       default:
