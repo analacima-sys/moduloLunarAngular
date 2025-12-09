@@ -76,7 +76,7 @@ select::placeholder {
 }
 
 .hint-text.text-danger {
-  color: #dc3545 !important;
+  color: #dc3545 ;
 }
 
 /* Responsive para formulario */
