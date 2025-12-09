@@ -2,6 +2,15 @@
 import { Component, signal, computed, LOCALE_ID, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+// Angular Material imports
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatButtonModule } from '@angular/material/button';
+
 import { MineralFormExtendidoService } from '../../services/mineral-form-extendido.service';
 import { MineralFormReducidoService } from '../../services/mineral-form-reducido.service';
 import { CriterioService } from '../../services/criterio.service';
@@ -19,14 +28,18 @@ import { TraducirEnumPipe } from '../../pipes/traducir-enum.pipe';
     CommonModule, 
     FormsModule, 
     ReactiveFormsModule,
-    TraducirEnumPipe
+    TraducirEnumPipe,
+    // Angular Material
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatRadioModule,
+    MatButtonModule
   ]
 })
 export class MineralComponent {
-  // Exponer ModoFormulario para la plantilla
   readonly ModoFormulario = ModoFormulario;
-  
-  // Inyectar el locale actual
   locale = inject(LOCALE_ID);
   
   esValido = signal<boolean | null>(null);
@@ -37,7 +50,6 @@ export class MineralComponent {
   readonly texturas = Object.values(Textura);
   readonly clasificaciones = Object.values(Clasificacion);
 
-  // Computed para obtener el formulario activo
   formularioActivo = computed(() => {
     return this.configSvc.modo() === ModoFormulario.Extendido
       ? this.formExtendido.formulario
@@ -82,7 +94,6 @@ export class MineralComponent {
     this.esValido.set(valido);
     this.ultimoMineral.set(mineral);
 
-    // Si es válido, guardar en IndexedDB
     if (valido) {
       try {
         const idRegistro = await this.indexedDBSvc.guardarMineral(
