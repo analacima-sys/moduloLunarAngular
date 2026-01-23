@@ -14,9 +14,9 @@
       "sourceRoot": "src",
       "prefix": "app",
       "i18n": {
-        "sourceLocale": "es-ES",
+        "sourceLocale": "es",
         "locales": {
-          "en-US": "src/locale/messages.en.xlf"
+          "en": "src/locale/messages.en.xlf"
         }
       },
       "architect": {
@@ -39,6 +39,7 @@
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.min.js"
             ],
+            "outputMode": "static",
             "polyfills": [
               "@angular/localize/init"
             ],
@@ -46,6 +47,7 @@
           },
           "configurations": {
             "production": {
+              "baseHref": "/03Angular/AnaLacima/",
               "budgets": [
                 {
                   "type": "initial",
@@ -60,8 +62,8 @@
               ],
               "outputHashing": "all",
               "localize": [
-                "es-ES",
-                "en-US"
+                "es",
+                "en"
               ]
             },
             "development": {
@@ -69,7 +71,7 @@
               "extractLicenses": false,
               "sourceMap": true,
               "localize": [
-                "es-ES"
+                "es"
               ]
             },
             "development-en": {
@@ -77,7 +79,7 @@
               "extractLicenses": false,
               "sourceMap": true,
               "localize": [
-                "en-US"
+                "en"
               ]
             }
           },

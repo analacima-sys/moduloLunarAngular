@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-  <file source-language="es-ES" target-language="en-US" datatype="plaintext" original="ng2.template">
+  <file source-language="es-ES" target-language="en" datatype="plaintext" original="ng2.template">
     <body>
     <trans-unit id="astronauta-label-id" datatype="html">
         <source>ID:</source>
@@ -351,6 +351,25 @@
           <context context-type="linenumber">30,31</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="mineral-form-error-id-required" datatype="html">
+  <source>El ID es requerido</source>
+  <target>ID is required</target>
+</trans-unit>
+
+<trans-unit id="mineral-form-error-id-pattern" datatype="html">
+  <source>Formato: 2 letras, 4 dígitos, 2 letras</source>
+  <target>Format: 2 letters, 4 digits, 2 letters</target>
+</trans-unit>
+
+<trans-unit id="mineral-form-error-temp-min" datatype="html">
+  <source>Mínimo: -100 K</source>
+  <target>Minimum: -100 K</target>
+</trans-unit>
+
+<trans-unit id="mineral-form-error-temp-max" datatype="html">
+  <source>Máximo: 100 K</source>
+  <target>Maximum: 100 K</target>
+</trans-unit>
     </body>
   </file>
 </xliff>
