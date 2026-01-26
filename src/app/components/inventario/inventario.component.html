@@ -1,0 +1,108 @@
+<!-- src/app/components/inventario/inventario.component.html -->
+<div class="container mt-4">
+  <!-- Header con título -->
+  <div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+      <h3 class="mb-0">
+        <span i18n="@@inventario-titulo">Inventario de Minerales</span>
+      </h3>
+    </div>
+  </div>
+
+  <!-- Estadísticas -->
+  <div class="row mb-4">
+    <div class="col-md-3 mb-3">
+      <div class="card stats-card">
+        <div class="card-body text-center">
+          <h4 class="stats-number">{{ totalMinerales }}</h4>
+          <p class="stats-label" i18n="@@inventario-total">Total de minerales</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3 mb-3">
+      <div class="card stats-card stats-igneas">
+        <div class="card-body text-center">
+          <h4 class="stats-number">{{ mineralesIgneas }}</h4>
+          <p class="stats-label" i18n="@@inventario-igneas">Ígneas</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3 mb-3">
+      <div class="card stats-card stats-metamorficas">
+        <div class="card-body text-center">
+          <h4 class="stats-number">{{ mineralesMetamorficas }}</h4>
+          <p class="stats-label" i18n="@@inventario-metamorficas">Metamórficas</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3 mb-3">
+      <div class="card stats-card stats-sedimentarias">
+        <div class="card-body text-center">
+          <h4 class="stats-number">{{ mineralesSedimentarias }}</h4>
+          <p class="stats-label" i18n="@@inventario-sedimentarias">Sedimentarias</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabla de minerales -->
+  <div class="card">
+    <div class="card-header bg-secondary text-white">
+      <h5 class="mb-0" i18n="@@inventario-lista-titulo">Minerales Registrados</h5>
+    </div>
+    <div class="card-body">
+      @if (minerales.length === 0) {
+        <!-- Mensaje cuando no hay minerales -->
+        <div class="empty-state">
+          <div class="empty-icon">🌑</div>
+          <h4 i18n="@@inventario-vacio-titulo">No hay minerales en el inventario</h4>
+          <p class="text-muted" i18n="@@inventario-vacio-mensaje">
+            Los minerales válidos que analices se guardarán automáticamente aquí.
+          </p>
+        </div>
+      } @else {
+        <!-- Tabla de minerales -->
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th i18n="@@inventario-tabla-id">ID</th>
+                <th i18n="@@inventario-tabla-nombre">Nombre</th>
+                <th i18n="@@inventario-tabla-grupo">Grupo</th>
+                <th i18n="@@inventario-tabla-fecha">Fecha de Análisis</th>
+                <th i18n="@@inventario-tabla-criterio">Criterio</th>
+                <th i18n="@@inventario-tabla-acciones">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (mineral of minerales; track mineral.idRegistro) {
+                <tr>
+                  <td>{{ mineral.mineral.id }}</td>
+                  <td>{{ mineral.mineral.nombre }}</td>
+                  <td>
+                    <span class="badge grupo-badge">
+                      {{ mineral.mineral.grupo }}
+                    </span>
+                  </td>
+                  <td>{{ mineral.fechaAnalisis | date:'short' }}</td>
+                  <td>{{ mineral.criterioUsado }}</td>
+                  <td>
+                    <button class="btn btn-sm btn-outline-primary me-2" i18n="@@inventario-btn-ver">
+                      Ver
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger" i18n="@@inventario-btn-eliminar">
+                      Eliminar
+                    </button>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+    </div>
+  </div>
+</div>

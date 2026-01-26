@@ -1,13 +1,13 @@
 // src/app/app.ts
 import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { MineralComponent } from './components/mineral/mineral.component';
 import { PanelConfiguracionNavbarComponent } from "./components/panel-configuracion/panel-configuracion-navbar.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [NavbarComponent, MineralComponent, PanelConfiguracionNavbarComponent],
+  imports: [RouterOutlet, NavbarComponent, PanelConfiguracionNavbarComponent],
   template: `
     <app-navbar></app-navbar>
     <div class="container">
@@ -21,7 +21,8 @@ import { PanelConfiguracionNavbarComponent } from "./components/panel-configurac
         <app-panel-configuracion-navbar [mobileMode]="true"></app-panel-configuracion-navbar>
       </div>
       
-      <app-mineral></app-mineral>
+      <!-- Router Outlet para mostrar los componentes según la ruta -->
+      <router-outlet></router-outlet>
     </div>
   `,
   styles: [`
